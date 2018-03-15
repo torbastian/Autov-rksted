@@ -12,6 +12,7 @@ namespace Autoværksted
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Jeg er en kage");
         }
     }
 }
