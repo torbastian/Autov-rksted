@@ -12,15 +12,14 @@ namespace Autoværksted
     {
         static void Main(string[] args)
         {
-            Kunde k1 = new Kunde();
-            k1.Fornavn = "Test";
-            k1.Efternavn = "Tester";
-            k1.Adresse = "Testvej 47";
-            k1.Tlf = "12345678";
+            //Kunde k1 = new Kunde();
+            //k1.Fornavn = "Test";
+            //k1.Efternavn = "Tester";
+            //k1.Adresse = "Testvej 47";
+            //k1.Tlf = "12345678";
 
             Datalag lag = new Datalag();
-            lag.CreateKunde(k1);
-
+            //lag.CreateKunde(k1);
             //Datalag lag = new Datalag();
             //Bil b1 = new Bil();
 

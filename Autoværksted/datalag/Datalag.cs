@@ -37,7 +37,7 @@ namespace Autoværksted
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
 
-                //SQL.Show(sqlcmd);
+                SQL.Read(sqlcmd);
             }
             else
                 Console.WriteLine("Fejl!: Ingen kunder har id på 0 eller lavere");
@@ -49,7 +49,7 @@ namespace Autoværksted
             {
                 string sqlcmd = string.Format("delete from Kunder where id={0}", id);
 
-                //SQL.Delete(sqlcmd);
+                SQL.Delete(sqlcmd);
             }
             else
                 Console.WriteLine("Fejl!: Ingen kunder har id på 0 eller lavere");

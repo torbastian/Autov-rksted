@@ -36,23 +36,61 @@ namespace Autoværksted
         }
         public static void Read(string sql)
         {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                //Åben forbindelse
-                con.Open();
-                //Laver en ny Kommando
-                SqlCommand command = new SqlCommand(sql, con);
 
-                using (SqlDataReader reader = command.ExecuteReader())
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConnectionString))
                 {
-                    while (reader.Read())
+                    //Åben forbindelse
+                    con.Open();
+                    //Laver en ny Kommando
+                    SqlCommand command = new SqlCommand(sql, con);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        while (reader.Read())
                         {
-                            Console.WriteLine("\n" + reader.GetValue(i));
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                if (i < (reader.FieldCount - 1))
+                                    Console.Write(string.Format("{0}, ", reader.GetValue(i)));
+                                else
+                                    Console.Write(reader.GetValue(i) + "\n");
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Fejl! : " + e.Message);
+            }
+        }
+
+        public static void Delete(string sql)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConnectionString))
+                {
+                    //Åben forbindelse
+                    con.Open();
+                    //Laver en ny Kommando
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    //Execute kommando
+                    int slettet = cmd.ExecuteNonQuery();
+
+                    if (slettet > 0)
+                        Console.WriteLine("Slettet! - Tryk en tast");
+                    else
+                        Console.WriteLine("Ikke fundet - Tryk en tast");
+
+                    Console.ReadKey();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Fejl! : " + e.Message);
             }
         }
     }
