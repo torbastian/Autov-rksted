@@ -8,8 +8,15 @@ namespace Autoværksted
 {
     class Datalag
     {
-        public void CreateKunde(string fnavn, string enavn, string adresse, string tlf)
+        public void CreateKunde(Kunde kunde)
         {
+            string fnavn, enavn, adresse, tlf;
+
+            fnavn = kunde.Fornavn;
+            enavn = kunde.Efternavn;
+            adresse = kunde.Adresse;
+            tlf = kunde.Tlf;
+
             if (fnavn.Length < 50 && enavn.Length < 50 && adresse.Length < 50 && tlf.Length < 12)
             {
                 string sqlcmd = string.Format("insert into Kunder (fornavn, efternavn, adresse, tlf, oprettelsesdato) values ('{0}', '{1}', '{2}', '{3}', GETDATE())",

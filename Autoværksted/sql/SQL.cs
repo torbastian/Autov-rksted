@@ -10,8 +10,8 @@ namespace Autoværksted
 {
     public class SQL
     {
-        private static string ConnectionString = "Data Source= SKAB5-PC-07\\HOLD21011801P:initialCatalog=AutoVaerksted; Integrated Security=True; ConectTimeout=50; Encrypt=False; TrustServerCertificate=True; ApplicationIntent=ReadWrite; MultiSubnetFallover=false";
-
+        private static string ConnectionString = "Data Source=SKAB5-PC-07\\HOLD21011801P;initial Catalog=AutoVaerksted;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        
         //Opretter kunde/bil
         public static void Create(string sql)
         {
@@ -25,6 +25,9 @@ namespace Autoværksted
                     SqlCommand cmd = new SqlCommand(sql, con);
                     //Exectue kommando
                     cmd.ExecuteNonQuery();
+                    con.Close();
+
+                    Console.WriteLine("Opretted!");
                 }
             }
             catch (Exception e)
