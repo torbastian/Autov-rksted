@@ -31,7 +31,9 @@ namespace Autoværksted
         //    {
         //        con.Open();
         //        SqlDataAdapter adapter = new SqlDataAdapter(sql, con);
+        //        adapter.Fill(table);
         //    }
+        //    return table;
         //}
 
     }
