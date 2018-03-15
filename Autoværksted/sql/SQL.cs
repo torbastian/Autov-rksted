@@ -25,7 +25,6 @@ namespace Autoværksted
                     SqlCommand cmd = new SqlCommand(sql, con);
                     //Execute kommando
                     cmd.ExecuteNonQuery();
-                    con.Close();
 
                     Console.WriteLine("Opretted!");
                 }
