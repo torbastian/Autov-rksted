@@ -35,7 +35,7 @@ namespace Autoværksted
             //Bil b2 = lag.hentBil("xx12345");
             //Console.WriteLine(b2.Model);
 
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }
