@@ -11,7 +11,7 @@ namespace Autoværksted
     public class SQL
     {
         private static string ConnectionString = "Data Source=SKAB5-PC-07\\HOLD21011801P;initial Catalog=AutoVaerksted;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        
+
         //Opretter kunde/bil
         public static void Create(string sql)
         {
@@ -21,9 +21,9 @@ namespace Autoværksted
                 {
                     //Åben forbindelse
                     con.Open();
-                    //Lav en ny Kommando
+                    //Laver en ny Kommando
                     SqlCommand cmd = new SqlCommand(sql, con);
-                    //Exectue kommando
+                    //Execute kommando
                     cmd.ExecuteNonQuery();
                     con.Close();
 
@@ -35,20 +35,26 @@ namespace Autoværksted
                 Console.WriteLine("Fejl! : " + e.Message);
             }
         }
+        public static void Read(string sql)
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                //Åben forbindelse
+                con.Open();
+                //Laver en ny Kommando
+                SqlCommand command = new SqlCommand(sql, con);
 
-        //public static DataTable Select(string sql)
-        //{
-        //    //string sql = string.Format("select bil.* from bil where regnr = '{0}'", regnr)
-
-        //    DataTable table = new DataTable();
-        //    using (SqlConnection con = new SqlConnection(ConnectionString))
-        //    {
-        //        con.Open();
-        //        SqlDataAdapter adapter = new SqlDataAdapter(sql, con);
-        //        adapter.Fill(table);
-        //    }
-        //    return table;
-        //}
-
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            Console.WriteLine("\n" + reader.GetValue(i));
+                        }
+                    }
+                }
+            }
+        }
     }
 }
