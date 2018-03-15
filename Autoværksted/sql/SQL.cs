@@ -12,15 +12,15 @@ namespace Autoværksted
     {
         private static string ConnectionString = "Data Source= SKAB5-PC-07\\HOLD21011801P:initialCatalog=AutoVaerksted; Integrated Security=True; ConectTimeout=50; Encrypt=False; TrustServerCertificate=True; ApplicationIntent=ReadWrite; MultiSubnetFallover=false";
 
-        public static void insert(string sql)
-        {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.ExecuteNonQuery();
-            }
-        }
+        //public static void insert(string sql)
+        //{
+        //    using (SqlConnection con = new SqlConnection(ConnectionString))
+        //    {
+        //        con.Open();
+        //        SqlCommand cmd = new SqlCommand(sql, con);
+        //        cmd.ExecuteNonQuery();
+        //    }
+        //}
 
         //public static DataTable Select(string sql)
         //{
