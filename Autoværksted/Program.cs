@@ -85,12 +85,14 @@ namespace Autoværksted
                     kundeid = Convert.ToInt16(Console.ReadLine());
                     lag.ShowKunde(kundeid);
                     Console.WriteLine("\nGår tilbage til Kunde-Menu");
+                    Console.ReadKey();
                     Console.Clear();
                     Kunder();
                     break;
                 case 5:
                     Console.WriteLine("Alle Kunder");
                     lag.ShowKundeAll();
+                    Console.ReadKey();
                     Console.WriteLine("\nGår tilbage til Kunde-Menu");
                     Console.Clear();
                     Kunder();
