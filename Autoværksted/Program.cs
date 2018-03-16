@@ -11,8 +11,41 @@ namespace Autoværksted
     class Program
     {
 
-        public void Kunder(int kunder = 0)
+        static void Main(string[] args)
         {
+            Menu();
+        }
+
+        static void Menu()
+        {
+            {
+                Datalag lag = new Datalag();
+                int.TryParse(Console.ReadLine(), out int valg);
+                switch (valg)
+                {
+                    case 1:
+                        Kunder();
+                        break;
+                    case 2:
+                        Biler();
+                        break;
+                    case 3:
+                        Vaerksted();
+                        break;
+
+                    default:
+                        Menu();
+                        break;
+                }
+
+                Console.ReadKey();
+            }
+        }
+
+        static public void Kunder()
+        {
+            Datalag lag = new Datalag();
+            int kunder = 0;
             Console.WriteLine("Du har valgt Kunder");
             kunder = Convert.ToInt16(Console.ReadLine());
             switch (kunder)
@@ -43,8 +76,10 @@ namespace Autoværksted
         }
 
 
-        public void Biler(int biler)
+        static public void Biler()
         {
+            Datalag lag = new Datalag();
+            int biler = 0;
             Console.WriteLine("Du har valgt Biler");
             switch (biler)
             {
@@ -65,8 +100,11 @@ namespace Autoværksted
             }
         }
 
-        public void Vaerksted(int vaerksted)
+        static public void Vaerksted()
         {
+            Datalag lag = new Datalag();
+
+            int vaerksted = 0;
             Console.WriteLine("Du har valgt Værksted");
             switch (vaerksted)
             {
@@ -84,45 +122,6 @@ namespace Autoværksted
                     break;
                 default:
                     break;
-            }
-        }
-
-
-        static void Main(string[] args)
-        {
-            {
-                Datalag lag = new Datalag();
-
-
-
-
-
-                //Kunde k4 = new Kunde();
-                //k4.Fornavn = "Test";
-                //k4.Efternavn = "Tester";
-                //k4.Adresse = "Testvej 47";
-                //k4.Tlf = "12345678";
-                //Console.WriteLine(k4.Fornavn + k4.Efternavn + k4.Adresse + k4.Tlf);
-                //Datalag lag = new Datalag();
-                //lag.CreateKunde(k1);
-
-                //Bil b1 = new Bil();
-
-                //b1.RegNR = "xx12345";
-                //b1.Maerke = "Mecedes";
-                //b1.Model = "Dennis";
-                //b1.Km = 123451;
-                //b1.Aargang = 2010;
-                //b1.KundeID = 2319;
-
-                //lag.opretBil(b1);
-                //Bil b2 = lag.hentBil("xx12345");
-                //Console.WriteLine(b2.Model);
-
-
-
-
-                Console.ReadKey();
             }
         }
     }
