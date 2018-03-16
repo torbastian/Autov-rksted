@@ -14,7 +14,6 @@ namespace Autoværksted
         private string efternavn;
         private string adresse;
         private string tlf;
-        private DateTime oprettelsesdato;
 
         //Properties
         public int Id {
@@ -40,11 +39,6 @@ namespace Autoværksted
         public string Tlf {
             get { return tlf; }
             set { tlf = value; }
-        }
-
-        public DateTime Oprettelsesdator {
-            get { return oprettelsesdato; }
-            set { oprettelsesdato = value; }
         }
     }
 }

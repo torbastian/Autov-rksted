@@ -12,8 +12,10 @@ namespace Autoværksted
         private string regNR;
         private string maerke;
         private string model;
+        private string braendstof;
         private int aargang;
         private int km;
+        private float kml;
         private int kundeID;
 
         //Properties
@@ -39,6 +41,11 @@ namespace Autoværksted
             set { model = value; }
         }
 
+        public string Braendstof {
+            get { return braendstof; }
+            set { braendstof = value; }
+        }
+
         //henter field aargang
         public int Aargang
         {
@@ -51,6 +58,12 @@ namespace Autoværksted
         {
             get { return km; }
             set { km = value; }
+        }
+
+        //Henter field kml
+        public float Kml {
+            get { return kml; }
+            set { kml = value; }
         }
 
         //henter field kundeID

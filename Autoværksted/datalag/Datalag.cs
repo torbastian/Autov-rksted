@@ -55,17 +55,20 @@ namespace Autoværksted
                 Console.WriteLine("Fejl!: Ingen kunder har id på 0 eller lavere");
         }
 
-        //public void CreateBil(Bil bil)
-        //{
-        //    string regNr, maerke, model;
-        //    int aargang, km, kundeid;
+        public void CreateBil(Bil bil)
+        {
+            string regNr, maerke, model, braendstof;
+            int aargang, km, kundeid;
+            float kml;
 
-        //    regNr = bil.RegNR;
-        //    maerke = bil.Maerke;
-        //    model = bil.Model;
-        //    aargang = bil.Aargang;
-        //    km = bil.Km;
-        //    kundeid = bil.KundeID;
+            regNr = bil.RegNR;
+            maerke = bil.Maerke;
+            model = bil.Model;
+            braendstof = bil.Braendstof;
+            aargang = bil.Aargang;
+            km = bil.Km;
+            kml = bil.Kml;
+            kundeid = bil.KundeID;
 
             /*
              * private string regNR;
@@ -86,7 +89,7 @@ namespace Autoværksted
                 oprettelsesdato date not null
                 )
             */
-        //}
+            }
 
-    }
+        }
 }
