@@ -72,5 +72,33 @@ namespace Autoværksted
             get { return kundeID; }
             set { kundeID = value; }
         }
+
+        public bool IsFilled()
+        {
+            int fillCount = 0;
+
+            if (!string.IsNullOrEmpty(regNR) && regNR.Length < 8)
+                fillCount++;
+
+            if (!string.IsNullOrEmpty(maerke) && maerke.Length < 50)
+                fillCount++;
+
+            if (!string.IsNullOrEmpty(model) && model.Length < 50)
+                fillCount++;
+
+            if (aargang > 1900)
+                fillCount++;
+
+            if (km >= 0)
+                fillCount++;
+
+            if (kml >= 0)
+                fillCount++;
+
+            if (kundeID > 0)
+                fillCount++;
+
+            return (fillCount == 7);
+        }
     }
 }

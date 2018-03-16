@@ -8,6 +8,7 @@ namespace Autoværksted
 {
     class Datalag
     {
+        //Kunder
         public void CreateKunde(Kunde kunde)
         {
             //Opret og set variabler
@@ -19,7 +20,7 @@ namespace Autoværksted
             tlf = kunde.Tlf;
 
             //Hvis variabler ikke følger regler, skriv fejl
-            if (fnavn.Length < 50 && enavn.Length < 50 && adresse.Length < 50 && tlf.Length < 12)
+            if (kunde.IsFilled())
             {
                 //Lav en ny SQL kommando string ud fra variabler
                 string sqlcmd = string.Format("insert into Kunder (fornavn, efternavn, adresse, tlf, oprettelsesdato) values ('{0}', '{1}', '{2}', '{3}', GETDATE())",
@@ -28,11 +29,12 @@ namespace Autoværksted
                 SQL.Create(sqlcmd);
             }
             else
-                Console.WriteLine("Fejl!: Et input er for langt");
+                Console.WriteLine("Fejl! - I input");
         }
 
         public void ShowKunde(int id)
         {
+            //Hvis id > 0, vis kunde ud fra id
             if (id > 0)
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
@@ -40,17 +42,19 @@ namespace Autoværksted
                 SQL.Read(sqlcmd);
             }
             else
-                Console.WriteLine("Fejl!: Ingen kunder har id på 0 eller lavere");
+                Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
         }
 
         public void ShowKundeAll()
         {
+            //Vis alle kunder
             string sqlcmd = "select * from Kunder";
             SQL.Read(sqlcmd);
         }
 
         public void DeleteKunde(int id)
         {
+            //Hvis id > 0, slet kunde ud fra id
             if (id > 0)
             {
                 string sqlcmd = string.Format("delete from Kunder where id={0}", id);
@@ -58,11 +62,12 @@ namespace Autoværksted
                 SQL.Delete(sqlcmd);
             }
             else
-                Console.WriteLine("Fejl!: Ingen kunder har id på 0 eller lavere");
+                Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
         }
 
         public void UpdateKunde(int id)
         {
+            //Hvis id < 0, Spørg hvad man vil ændre
             if (id < 0)
             {
                 ShowKunde(id);
@@ -110,6 +115,7 @@ namespace Autoværksted
                     }
                 }
 
+                //Lav en liste over hvad der skal opdateres
                 List<string> ToUpdate = new List<string>();
 
                 if (!string.IsNullOrEmpty(kunde.Fornavn))
@@ -124,22 +130,25 @@ namespace Autoværksted
                 if (!string.IsNullOrEmpty(kunde.Tlf))
                     ToUpdate.Add(string.Format("tlf = '{0}'", kunde.Tlf));
 
-                string sqlUpdateString = "Update Kunder Set ";
+                string sqlcmd = "Update Kunder Set ";
 
+                //for hver ting der skal opdateres, tilføj parametre, og hvis det ikke er den sidste parametre tilføj ", "
                 for (int i = 0; i < ToUpdate.Count; i++)
                 {
-                    sqlUpdateString += ToUpdate[i];
+                    sqlcmd += ToUpdate[i];
 
                     if (i < (ToUpdate.Count - 1))
-                        sqlUpdateString += ", ";
+                        sqlcmd += ", ";
                 }
 
-                sqlUpdateString += " where id = " + id.ToString();
+                //Gør kommandoen færdig og kør den
+                sqlcmd += " where id = " + id.ToString();
 
-                SQL.Update(sqlUpdateString);
+                SQL.Update(sqlcmd);
             }
         }
 
+        //Biler
         public void CreateBil(Bil bil)
         {
             string regNr, maerke, model, braendstof;
@@ -155,26 +164,157 @@ namespace Autoværksted
             kml = bil.Kml;
             kundeid = bil.KundeID;
 
-            /*
-             * private string regNR;
-        private string maerke;
-        private string model;
-        private int aargang;
-        private int km;
-        private int kundeID;
-             * create table Biler (
-                reg_nr nvarchar(8) primary key,
-                kunde_id int foreign key references Kunder(id),
-                maerke nvarchar(50) not null,
-                model nvarchar(50) not null,
-                aargang int not null check(aargang > 1900),
-                km int check(km >= 0),
-                braendstof nvarchar(30) not null,
-                km_l float not null,
-                oprettelsesdato date not null
-                )
-            */
+            if(bil.IsFilled())
+            {
+                string sqlcmd = string.Format("insert into Biler values {0}, {1}, {2}, {3}, {4}, {5}, {6}, GETDATE()"
+                                              , regNr, kundeid, maerke, model, aargang, km, braendstof, kml);
+
+                SQL.Create(sqlcmd);
             }
+            else
+                Console.WriteLine("Fejl! - I input");
 
         }
+
+        public void ShowBil(string regnr)
+        {
+            if (!string.IsNullOrEmpty(regnr))
+            {
+                string sqlcmd = string.Format("select * from Biler where reg_nr={0}", regnr);
+
+                SQL.Read(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - Tom regnr");
+        }
+
+        public void ShowBilAll()
+        {
+            string sqlcmd = "select * from Biler";
+
+            SQL.Read(sqlcmd);
+        }
+
+        public void DeleteBil(string regnr)
+        {
+            if (!string.IsNullOrEmpty(regnr))
+            {
+                string sqlcmd = string.Format("delete from Biler where reg_nr={0}", regnr);
+
+                SQL.Delete(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - Tom regnr");
+        }
+
+        public void UpdateBil(string regnr)
+        {
+            if (!string.IsNullOrEmpty(regnr))
+            {
+                ShowBil(regnr);
+                Console.WriteLine("Hvad vil du ændre? - Indtast de følgende\n" +
+                                  "Regnr" +
+                                  "KundeId" +
+                                  "Mærke" +
+                                  "Model" +
+                                  "Årgang" +
+                                  "Km" +
+                                  "Brændstof" +
+                                  "Kml");
+
+                string[] valgt = Console.ReadLine().Split();
+
+                Bil bil = new Bil();
+
+                foreach (string v in valgt)
+                {
+                    switch (v.ToLower())
+                    {
+                        case "regnr":
+                            Console.WriteLine("Indtast nyt Regnr");
+                            bil.RegNR = Console.ReadLine().Trim();
+                            break;
+
+                        case "kundeid":
+                            Console.WriteLine("Indtast nyt Kunde ID");
+                            bil.KundeID = Convert.ToInt16(Console.ReadLine().Trim());
+                            break;
+
+                        case "mærke":
+                            Console.WriteLine("Indtast nyt mærke");
+                            bil.Maerke = Console.ReadLine().Trim();
+                            break;
+
+                        case "model":
+                            Console.WriteLine("Indtast ny Model");
+                            bil.Model = Console.ReadLine().Trim();
+                            break;
+
+                        case "årgang":
+                            Console.WriteLine("Indtast ny årgang");
+                            bil.Aargang = Convert.ToInt16(Console.ReadLine().Trim());
+                            break;
+
+                        case "km":
+                            Console.WriteLine("Indtast ny km");
+                            bil.Km = Convert.ToInt16(Console.ReadLine().Trim());
+                            break;
+
+                        case "brændstof":
+                            Console.WriteLine("Indtast nyt Brændstof");
+                            bil.Braendstof = Console.ReadLine();
+                            break;
+
+                        case "kml":
+                            Console.WriteLine("Indtast ny kml");
+                            float.TryParse(Console.ReadLine(), out float kml);
+                            bil.Kml = kml;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                List<string> ToUpdate = new List<string>();
+
+                if (!string.IsNullOrEmpty(bil.RegNR))
+                    ToUpdate.Add(string.Format("reg_nr = '{0}'", bil.RegNR));
+
+                if (bil.KundeID > 0)
+                    ToUpdate.Add(string.Format("Kunde_id = '{0}", bil.KundeID));
+
+                if (!string.IsNullOrEmpty(bil.Maerke))
+                    ToUpdate.Add(string.Format("maerke = '{0}'", bil.Maerke));
+
+                if (!string.IsNullOrEmpty(bil.Model))
+                    ToUpdate.Add(string.Format("model = '{0}'", bil.Model));
+
+                if (bil.Aargang > 1900)
+                    ToUpdate.Add(string.Format("aargang = '{0}'", bil.Aargang));
+
+                if (bil.Km >= 0)
+                    ToUpdate.Add(string.Format("km = '{0}'", bil.Km));
+
+                if (!string.IsNullOrEmpty(bil.Braendstof))
+                    ToUpdate.Add(string.Format("braendstof = '{0}'", bil.Braendstof));
+
+                if (bil.Kml > 0)
+                    ToUpdate.Add(string.Format("kml = '{0}'", bil.Kml));
+
+                string sqlcmd = "Update Biler Set ";
+
+                for (int i = 0; i < ToUpdate.Count; i++)
+                {
+                    sqlcmd += ToUpdate[i];
+
+                    if (i < (ToUpdate.Count - 1))
+                        sqlcmd += ", ";
+                }
+
+                sqlcmd += " where reg_nr = " + regnr;
+
+                SQL.Update(sqlcmd);
+            }
+        }
+    }
 }

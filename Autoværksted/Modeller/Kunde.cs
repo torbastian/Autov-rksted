@@ -9,18 +9,12 @@ namespace Autoværksted
     class Kunde
     {
         //Fields
-        private int id;
         private string fornavn;
         private string efternavn;
         private string adresse;
         private string tlf;
 
         //Properties
-        public int Id {
-            get { return id; }
-            set { id = value; }
-        }
-
         public string Fornavn {
             get { return fornavn; }
             set { fornavn = value; }
@@ -39,6 +33,25 @@ namespace Autoværksted
         public string Tlf {
             get { return tlf; }
             set { tlf = value; }
+        }
+
+        public bool IsFilled()
+        {
+            int fillCount = 0;
+
+            if (!string.IsNullOrEmpty(fornavn) && fornavn.Length < 50)
+                fillCount++;
+
+            if (!string.IsNullOrEmpty(efternavn) && efternavn.Length < 50)
+                fillCount++;
+
+            if (!string.IsNullOrEmpty(adresse) && adresse.Length < 50)
+                fillCount++;
+
+            if (!string.IsNullOrEmpty(tlf) && tlf.Length < 12)
+                fillCount++;
+
+            return (fillCount == 4);
         }
     }
 }
