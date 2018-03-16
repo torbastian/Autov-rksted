@@ -26,10 +26,7 @@ namespace Autoværksted
                     //Execute kommando
                     int oprettet = cmd.ExecuteNonQuery();
 
-                    if (oprettet < 0)
-                        Console.WriteLine("Oprettet! - Tryk en tast");
-                    else
-                        Console.WriteLine("Kunne ikke oprettes - Tryk en tast");
+                    Console.WriteLine("Oprettet! - Tryk en tast");
 
                     Console.ReadKey();
                 }
