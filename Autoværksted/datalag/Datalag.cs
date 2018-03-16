@@ -9,22 +9,29 @@ namespace Autoværksted
     class Datalag
     {
         //Kunder
-        public void CreateKunde(Kunde kunde)
+        public void CreateKunde()
         {
-            //Opret og set variabler
-            string fnavn, enavn, adresse, tlf;
+            Kunde kunde = new Kunde();
+            Console.WriteLine("Indtast information for kunde");
 
-            fnavn = kunde.Fornavn;
-            enavn = kunde.Efternavn;
-            adresse = kunde.Adresse;
-            tlf = kunde.Tlf;
+            Console.Write("Fornavn: ");
+            kunde.Fornavn = Console.ReadLine().Trim();
+
+            Console.Write("\nEfternavn: ");
+            kunde.Efternavn = Console.ReadLine().Trim();
+
+            Console.Write("\nAdresse: ");
+            kunde.Adresse = Console.ReadLine();
+
+            Console.Write("\nTlf nr: ");
+            kunde.Tlf = Console.ReadLine().Trim();
 
             //Hvis variabler ikke følger regler, skriv fejl
             if (kunde.IsFilled())
             {
                 //Lav en ny SQL kommando string ud fra variabler
                 string sqlcmd = string.Format("insert into Kunder (fornavn, efternavn, adresse, tlf, oprettelsesdato) values ('{0}', '{1}', '{2}', '{3}', GETDATE())",
-                                              fnavn, enavn, adresse, tlf);
+                                              kunde.Fornavn, kunde.Efternavn, kunde.Adresse, kunde.Tlf);
                 //Kald på SQL.Create til at oprette kunden i databasen
                 SQL.Create(sqlcmd);
             }
@@ -150,25 +157,43 @@ namespace Autoværksted
         }
 
         //Biler
-        public void CreateBil(Bil bil)
+        public void CreateBil()
         {
-            string regNr, maerke, model, braendstof;
-            int aargang, km, kundeid;
-            float kml;
+            Bil bil = new Bil();
+            Console.WriteLine("Indtast information for Bil");
 
-            regNr = bil.RegNR;
-            maerke = bil.Maerke;
-            model = bil.Model;
-            braendstof = bil.Braendstof;
-            aargang = bil.Aargang;
-            km = bil.Km;
-            kml = bil.Kml;
-            kundeid = bil.KundeID;
+            Console.Write("Reg nr: ");
+            bil.RegNR = Console.ReadLine().Trim();
+
+            Console.Write("\nMaerke: ");
+            bil.Maerke = Console.ReadLine().Trim();
+
+            Console.Write("\nModel: ");
+            bil.Model = Console.ReadLine().Trim();
+
+            Console.Write("\nBrændstof: ");
+            bil.Braendstof = Console.ReadLine().Trim();
+
+            Console.Write("\nAargang: ");
+            int.TryParse(Console.ReadLine().Trim(), out int aargang);
+            bil.Aargang = aargang;
+
+            Console.Write("\nKm: ");
+            int.TryParse(Console.ReadLine().Trim(), out int km);
+            bil.Km = km;
+
+            Console.Write("\nKml: ");
+            float.TryParse(Console.ReadLine().Trim(), out float kml);
+            bil.Kml = kml;
+
+            Console.Write("\nKunde Id: ");
+            int.TryParse(Console.ReadLine().Trim(), out int kid);
+            bil.KundeID = kid;
 
             if(bil.IsFilled())
             {
                 string sqlcmd = string.Format("insert into Biler values {0}, {1}, {2}, {3}, {4}, {5}, {6}, GETDATE()"
-                                              , regNr, kundeid, maerke, model, aargang, km, braendstof, kml);
+                                              , bil.RegNR, bil.KundeID, bil.Maerke, bil.Model, bil.Aargang, bil.Km, bil.Braendstof, bil.Kml);
 
                 SQL.Create(sqlcmd);
             }
@@ -317,6 +342,12 @@ namespace Autoværksted
 
                 SQL.Update(sqlcmd);
             }
+        }
+
+        //Innerjoin
+        public void InnerJoin()
+        {
+
         }
 
         //diverse
