@@ -59,7 +59,8 @@ namespace Autoværksted
             {
                 string sqlcmd = string.Format("delete from Kunder where id={0}", id);
 
-                SQL.Delete(sqlcmd);
+                if (AreYouSure())
+                    SQL.Delete(sqlcmd);
             }
             else
                 Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
@@ -72,10 +73,10 @@ namespace Autoværksted
             {
                 ShowKunde(id);
                 Console.WriteLine("Hvad vil du ændre? - Indtast de følgende\n" +
-                                  "Fornavn" +
-                                  "Efternavn" +
-                                  "Adresse" +
-                                  "Telefon");
+                                  "Fornavn\n" +
+                                  "Efternavn\n" +
+                                  "Adresse\n" +
+                                  "Telefon\n");
 
                 string[] valgt = Console.ReadLine().Split();
 
@@ -201,7 +202,8 @@ namespace Autoværksted
             {
                 string sqlcmd = string.Format("delete from Biler where reg_nr={0}", regnr);
 
-                SQL.Delete(sqlcmd);
+                if (AreYouSure())
+                    SQL.Delete(sqlcmd);
             }
             else
                 Console.WriteLine("Fejl! - Tom regnr");
@@ -213,14 +215,14 @@ namespace Autoværksted
             {
                 ShowBil(regnr);
                 Console.WriteLine("Hvad vil du ændre? - Indtast de følgende\n" +
-                                  "Regnr" +
-                                  "KundeId" +
-                                  "Mærke" +
-                                  "Model" +
-                                  "Årgang" +
-                                  "Km" +
-                                  "Brændstof" +
-                                  "Kml");
+                                  "Regnr\n" +
+                                  "KundeId\n" +
+                                  "Mærke\n" +
+                                  "Model\n" +
+                                  "Årgang\n" +
+                                  "Km\n" +
+                                  "Brændstof\n" +
+                                  "Kml\n");
 
                 string[] valgt = Console.ReadLine().Split();
 
@@ -315,6 +317,16 @@ namespace Autoværksted
 
                 SQL.Update(sqlcmd);
             }
+        }
+
+        //diverse
+        public bool AreYouSure()
+        {
+            Console.WriteLine("Er du sikker? Y/N");
+            if (Console.ReadLine().ToLower() == "y")
+                return true;
+            else
+                return false;
         }
     }
 }
