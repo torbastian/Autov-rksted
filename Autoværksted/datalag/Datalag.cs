@@ -33,7 +33,7 @@ namespace Autoværksted
         }
 
         public void ShowKunde(int id)
-        {
+        { //Test
             //Hvis id > 0, vis kunde ud fra id
             if (id > 0)
             {
