@@ -45,7 +45,7 @@ namespace Autoværksted
                 Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
         }
 
-        public void ShowKundeAll()
+        public void ShowKunde()
         {
             //Vis alle kunder
             string sqlcmd = "select * from Kunder";
