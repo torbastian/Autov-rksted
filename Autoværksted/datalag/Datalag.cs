@@ -43,6 +43,12 @@ namespace Autoværksted
                 Console.WriteLine("Fejl!: Ingen kunder har id på 0 eller lavere");
         }
 
+        public void ShowKundeAll()
+        {
+            string sqlcmd = "select * from Kunder";
+            SQL.Read(sqlcmd);
+        }
+
         public void DeleteKunde(int id)
         {
             if (id > 0)
@@ -53,6 +59,85 @@ namespace Autoværksted
             }
             else
                 Console.WriteLine("Fejl!: Ingen kunder har id på 0 eller lavere");
+        }
+
+        public void UpdateKunde(int id)
+        {
+            if (id < 0)
+            {
+                ShowKunde(id);
+                Console.WriteLine("Hvad vil du ændre? - Indtast de følgende\n" +
+                                  "Fornavn" +
+                                  "Efternavn" +
+                                  "Adresse" +
+                                  "Telefon");
+
+                string[] valgt = Console.ReadLine().Split();
+
+                Kunde kunde = new Kunde();
+
+                foreach (string v in valgt)
+                {
+                    switch (v.ToLower())
+                    {
+                        case "fornavn":
+                            Console.WriteLine("Indtast nyt fornavn");
+                            kunde.Fornavn = Console.ReadLine().Trim();
+                            break;
+
+                        case "efternavn":
+                            Console.WriteLine("Indtast nyt efternavn");
+                            kunde.Efternavn = Console.ReadLine().Trim();
+                            break;
+
+                        case "adresse":
+                            Console.WriteLine("Indtast ny adresse");
+                            kunde.Adresse = Console.ReadLine().Trim();
+                            break;
+
+                        case "telefon":
+                            Console.WriteLine("Indtast nyt Telefon nr");
+                            kunde.Tlf = Console.ReadLine().Trim();
+                            break;
+
+                        case "tlf":
+                            Console.WriteLine("Indtast nyt Telefon nr");
+                            kunde.Tlf = Console.ReadLine().Trim();
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                List<string> ToUpdate = new List<string>();
+
+                if (!string.IsNullOrEmpty(kunde.Fornavn))
+                    ToUpdate.Add(string.Format("fornavn = '{0}'", kunde.Fornavn));
+
+                if (!string.IsNullOrEmpty(kunde.Efternavn))
+                    ToUpdate.Add(string.Format("efternavn = '{0}", kunde.Efternavn));
+
+                if (!string.IsNullOrEmpty(kunde.Adresse))
+                    ToUpdate.Add(string.Format("adresse = '{0}'", kunde.Adresse));
+
+                if (!string.IsNullOrEmpty(kunde.Tlf))
+                    ToUpdate.Add(string.Format("tlf = '{0}'", kunde.Tlf));
+
+                string sqlUpdateString = "Update Kunder Set ";
+
+                for (int i = 0; i < ToUpdate.Count; i++)
+                {
+                    sqlUpdateString += ToUpdate[i];
+
+                    if (i < (ToUpdate.Count - 1))
+                        sqlUpdateString += ", ";
+                }
+
+                sqlUpdateString += " where id = " + id.ToString();
+
+                SQL.Update(sqlUpdateString);
+            }
         }
 
         public void CreateBil(Bil bil)

@@ -24,9 +24,14 @@ namespace Autoværksted
                     //Laver en ny Kommando
                     SqlCommand cmd = new SqlCommand(sql, con);
                     //Execute kommando
-                    cmd.ExecuteNonQuery();
+                    int oprettet = cmd.ExecuteNonQuery();
 
-                    Console.WriteLine("Opretted!");
+                    if (oprettet < 0)
+                        Console.WriteLine("Oprettet! - Tryk en tast");
+                    else
+                        Console.WriteLine("Kunne ikke oprettes - Tryk en tast");
+
+                    Console.ReadKey();
                 }
             }
             catch (Exception e)
@@ -82,6 +87,33 @@ namespace Autoværksted
 
                     if (slettet > 0)
                         Console.WriteLine("Slettet! - Tryk en tast");
+                    else
+                        Console.WriteLine("Ikke fundet - Tryk en tast");
+
+                    Console.ReadKey();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Fejl! : " + e.Message);
+            }
+        }
+
+        public static void Update(string sql)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConnectionString))
+                {
+                    //Åben forbindelse
+                    con.Open();
+                    //Lav en ny kommando
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    //Execute kommando
+                    int updated = cmd.ExecuteNonQuery();
+
+                    if (updated > 0)
+                        Console.WriteLine("Opdateret! - Tryk en tast");
                     else
                         Console.WriteLine("Ikke fundet - Tryk en tast");
 
