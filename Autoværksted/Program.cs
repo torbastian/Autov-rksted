@@ -64,7 +64,7 @@ namespace Autoværksted
             Console.WriteLine("\nIndtast 1 for at oprette en Kunde\n" +
                                 "Indtast 2 for at opdatere oplysninger på Kunde\n" +
                                 "Indtast 3 for at slette en Kunde\n" +
-                                "Indtast 4 for at vise oplysninger af Kunde\n" +
+                                "Indtast 4 for at vise oplysninger af en bestemt Kunde\n" +
                                 "Indtast 5 for vise alle Kunder");
 
             kunder = Convert.ToInt16(Console.ReadLine());
@@ -122,7 +122,7 @@ namespace Autoværksted
             Console.WriteLine("\nIndtast 1 for at oprette en Bil\n" +
                                 "Indtast 2 for at opdatere oplysninger på Bil\n" +
                                 "Indtast 3 for at slette en Bil\n" +
-                                "Indtast 4 for at vise oplysninger på Bil\n" +
+                                "Indtast 4 for at vise oplysninger på en bestemt Bil\n" +
                                 "Indtast 5 for vise oplysninger på alle Biler");
 
             biler = Convert.ToInt16(Console.ReadLine());
@@ -179,7 +179,7 @@ namespace Autoværksted
             Console.WriteLine("Du har valgt Værkstedophold");
             Console.WriteLine("\nIndtast 1 for at oprette et Værkstedsophold\n" +
                                 "Indtast 2 for at slette et Værkstedsophold\n" +
-                                "Indtast 3 for at vise oplysninger på et Værkstedsophold\n" +
+                                "Indtast 3 for at vise oplysninger på et bestemt Værkstedsophold\n" +
                                 "Indtast 4 for vise oplysninger på alle Værkstedsophold");
 
             vaerksted = Convert.ToInt16(Console.ReadLine());
