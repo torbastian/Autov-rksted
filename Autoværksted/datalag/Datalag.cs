@@ -59,6 +59,68 @@ namespace Autoværksted
             SQL.Read(sqlcmd);
         }
 
+        public void ShowKundeOrder()
+        {
+
+            Console.WriteLine("I hvilken ordre?\n" +
+                              "Efternavn\n" +
+                              "Fornavn\n" +
+                              "ID\n" +
+                              "Adresse\n" +
+                              "Oprettelses Dato (Dato)");
+
+            string parameter = string.Empty;
+            string read = Console.ReadLine().ToLower().Trim();
+
+            switch (read)
+            {
+                case "efternavn":
+                    parameter = read;
+                    break;
+
+                case "fornavn":
+                    parameter = read;
+                    break;
+
+                case "id":
+                    parameter = read;
+                    break;
+
+                case "adresse":
+                    parameter = read;
+                    break;
+
+                case "dato":
+                    parameter = "oprettelsesdato";
+                    break;
+
+                case "oprettelsesdato":
+                    parameter = read;
+                    break;
+
+                default:
+                    Console.WriteLine("Ukendt input");
+                    ShowKundeOrder();
+                    break;
+            }
+
+            string order = "asc";
+
+            read = string.Empty;
+
+            Console.WriteLine("Ascending (asc) eller Descending (dec)");
+
+            read = Console.ReadLine().ToLower();
+
+            if (read == "asc" || read == "ascending")
+                order = "asc";
+            else if (read == "dec" || read == "descending")
+                order = "dec";
+
+            string sqlcmd = string.Format("select * from Kunder Order by {0} {1}", parameter, order);
+            SQL.Read(sqlcmd);
+        }
+
         public void DeleteKunde(int id)
         {
             //Hvis id > 0, slet kunde ud fra id
@@ -218,6 +280,69 @@ namespace Autoværksted
         {
             string sqlcmd = "select * from Biler";
 
+            SQL.Read(sqlcmd);
+        }
+
+        public void ShowBilOrder()
+        {
+
+            Console.WriteLine("I hvilken ordre?\n" +
+                              "kunde id (id)\n" +
+                              "mærke (maerke)\n" +
+                              "model\n" +
+                              "Årgang (aargang)\n" +
+                              "KM\n" +
+                              "Oprettelses Dato (Dato)");
+
+            string parameter = string.Empty;
+            string read = Console.ReadLine().ToLower().Trim();
+
+            switch (read)
+            {
+                case "efternavn":
+                    parameter = read;
+                    break;
+
+                case "fornavn":
+                    parameter = read;
+                    break;
+
+                case "id":
+                    parameter = read;
+                    break;
+
+                case "adresse":
+                    parameter = read;
+                    break;
+
+                case "dato":
+                    parameter = "oprettelsesdato";
+                    break;
+
+                case "oprettelsesdato":
+                    parameter = read;
+                    break;
+
+                default:
+                    Console.WriteLine("Ukendt input");
+                    ShowKundeOrder();
+                    break;
+            }
+
+            string order = "asc";
+
+            read = string.Empty;
+
+            Console.WriteLine("Ascending (asc) eller Descending (dec)");
+
+            read = Console.ReadLine().ToLower();
+
+            if (read == "asc" || read == "ascending")
+                order = "asc";
+            else if (read == "dec" || read == "descending")
+                order = "dec";
+
+            string sqlcmd = string.Format("select * from Biler Order by {0} {1}", parameter, order);
             SQL.Read(sqlcmd);
         }
 
