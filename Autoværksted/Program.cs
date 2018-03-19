@@ -174,7 +174,7 @@ namespace Autoværksted
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
             Datalag lag = new Datalag();
 
-            Console.WriteLine("Du har valgt Værkstedophold");
+            Console.WriteLine("Du har valgt Værkstedsophold");
             Console.WriteLine("\nIndtast 1 for at oprette et Værkstedsophold\n" +
                                 "Indtast 2 for at slette et Værkstedsophold\n" +
                                 "Indtast 3 for at vise oplysninger på et bestemt Værkstedsophold\n" +
@@ -183,7 +183,7 @@ namespace Autoværksted
             int.TryParse(Console.ReadLine(), out int vaerksted);
 
             Console.Clear();
-            Console.WriteLine("Du har valgt Værkstedophold");
+            Console.WriteLine("Du har valgt Værkstedsophold");
 
             switch (vaerksted)
             {
