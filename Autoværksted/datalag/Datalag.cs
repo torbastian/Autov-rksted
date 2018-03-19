@@ -8,7 +8,7 @@ namespace Autoværksted
 {
     class Datalag
     {
-        //Kunder
+        //Kunder <-<-<-<-<-<-<-<-<-
         public void CreateKunde()
         {   //får fat i kunde info
             Kunde kunde = new Kunde();
@@ -275,7 +275,7 @@ namespace Autoværksted
             }
         }
 
-        //Biler
+        //Biler <-<-<-<-<-<-<-<-<-
         public void CreateBil()
         {   //Opret ny bil
             Bil bil = new Bil();
@@ -571,7 +571,7 @@ namespace Autoværksted
 
                 List<string> ToUpdate = new List<string>();
                 
-                //Find ud af hvad der skal ændres
+                //Dette finder ud af hvad der skal ændres
                 if (!string.IsNullOrEmpty(bil.RegNR))
                     ToUpdate.Add(string.Format("reg_nr = '{0}'", bil.RegNR));
 
@@ -612,7 +612,7 @@ namespace Autoværksted
             }
         }
 
-        //Autoværksted
+        //Autoværksted <-<-<-<-<-<-<-<-<-<-
         public void NewAutoRecord()
         {   //Opret ny værksteds log
             Console.Write("Opret nyt værksteds besøg\nIndtast Kunde id: ");
@@ -649,6 +649,7 @@ namespace Autoværksted
 
             string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
         }
+
 
         //diverse
         public bool AreYouSure()

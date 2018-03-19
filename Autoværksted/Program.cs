@@ -62,7 +62,7 @@ namespace Autoværksted
             int kunder = 0;
             Console.WriteLine("Du har valgt Kunder");
             Console.WriteLine("\nIndtast 1 for at oprette en Kunde\n" +
-                                "Indtast 2 for at Opdatere oplysninger på Kunde\n" +
+                                "Indtast 2 for at opdatere oplysninger på Kunde\n" +
                                 "Indtast 3 for at slette en Kunde\n" +
                                 "Indtast 4 for at vise oplysninger af Kunde\n" +
                                 "Indtast 5 for vise alle Kunder");
@@ -84,7 +84,7 @@ namespace Autoværksted
                     break;
 
                 case 3:
-                    Console.WriteLine("\nHer kan man Slette en kunde");
+                    Console.WriteLine("\nHer kan man slette en kunde");
                     lag.DeleteKunde(); //Bruger metoden DeleteKunde fra Klassen Datalag
                     break;
 
@@ -120,9 +120,10 @@ namespace Autoværksted
             int biler = 0;
             Console.WriteLine("Du har valgt Biler");
             Console.WriteLine("\nIndtast 1 for at oprette en Bil\n" +
-                                "Indtast 2 for at Opdatere oplysninger på Bil\n" +
-                                "Indtast 3 for at slette en Bil\nIndtast 4 for at vise oplysninger af bil\n" +
-                                "Indtast 5 for vise alle Biler");
+                                "Indtast 2 for at opdatere oplysninger på Bil\n" +
+                                "Indtast 3 for at slette en Bil\n" +
+                                "Indtast 4 for at vise oplysninger på Bil\n" +
+                                "Indtast 5 for vise oplysninger på alle Biler");
 
             biler = Convert.ToInt16(Console.ReadLine());
             Console.Clear();
@@ -136,7 +137,7 @@ namespace Autoværksted
                     break;
 
                 case 2:
-                    Console.WriteLine("\nHer Opdatere du din Bils oplysninger");
+                    Console.WriteLine("\nHer opdatere du din Bils oplysninger");
                     lag.UpdateBil(); //Bruger metoden UpdateBil fra Klassen Datalag
                     break;
 
@@ -170,34 +171,49 @@ namespace Autoværksted
 
         static public void Vaerksted()
         {
+            Console.Clear();
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
             Datalag lag = new Datalag();
 
             int vaerksted = 0;
             Console.WriteLine("Du har valgt Værkstedophold");
+            Console.WriteLine("\nIndtast 1 for at oprette et Værkstedsophold\n" +
+                                "Indtast 2 for at slette et Værkstedsophold\n" +
+                                "Indtast 3 for at vise oplysninger på et Værkstedsophold\n" +
+                                "Indtast 4 for vise oplysninger på alle Værkstedsophold");
+
+            vaerksted = Convert.ToInt16(Console.ReadLine());
 
             switch (vaerksted)
             {
                 case 1:
-                    Console.WriteLine();
+                    Console.WriteLine("\nHer laver man et nyt Værkstedsophold");
+                    lag.NewAutoRecord(); //Bruger metoden NewAutoRecord fra Klassen Datalag
                     break;
 
                 case 2:
-                    Console.WriteLine();
+                    Console.WriteLine("\nHer sletter man et Værkstedsophold");
+                    lag.DeleteAutoRecord(); //Bruger metoden DeleteAutoRecord fra Klassen Datalag
                     break;
 
                 case 3:
-                    Console.WriteLine();
+                    Console.WriteLine("\nHer kan man se et bestemt Værstedsophold");
+                    lag.ShowAutoRecord(); //Bruger metoden ShowAutoRecord fra Klassen Datalag
                     break;
 
                 case 4:
-                    Console.WriteLine();
+                    Console.WriteLine("\nHer kan man se alle Værkstedsophold");
+                    lag.ShowAutoRecordAll(); //Bruger metoden ShowAutoRecordAll fra Klassen Datalag
                     break;
 
                 default:
                     Menu();
                     break;
             }
+
+            Console.WriteLine("\nTryk på tast for at gå tilbage til Vaerksteds-Menu");
+            Console.ReadKey();
+            Vaerksted();
         }
     }
 }
