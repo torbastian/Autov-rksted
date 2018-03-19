@@ -111,22 +111,52 @@ namespace Autoværksted
         {
             Datalag lag = new Datalag();
             int biler = 0;
+            string regnr = "";
             Console.WriteLine("Du har valgt Biler");
+            Console.WriteLine("\nIndtast 1 for at oprette en Bil\nIndtast 2 for at Updatere oplysninger på Bil\nIndtast 3 for at slette en Bil\nIndtast 4 for at vise oplysninger af bil\nIndtast 5 for vise alle  Biler");
+            biler = Convert.ToInt16(Console.ReadLine());
+
             switch (biler)
             {
                 case 1:
-                    Console.WriteLine();
+                    Console.WriteLine("Her opretter du din bil");
+                    lag.CreateBil();
+                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Biler();
                     break;
                 case 2:
-                    Console.WriteLine();
+                    Console.WriteLine("Her updatere du din Bils oplysninger");
+                    Console.Write("Indtast Bilens RegNr: ");
+                    regnr = Console.ReadLine();
+                    lag.UpdateBil(regnr);
+                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Biler();
                     break;
                 case 3:
-                    Console.WriteLine();
+                    Console.WriteLine("Sletter Bil");
+                    Console.Write("Indtast Bilens RegNr: ");
+                    regnr = Console.ReadLine();
+                    lag.DeleteBil(regnr);
+                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Biler();
                     break;
                 case 4:
-                    Console.WriteLine();
+                    Console.WriteLine("Her kan du se oplysninger på valgte Bil");
+                    Console.Write("Indtast Bilens RegNr: ");
+                    regnr = Console.ReadLine();
+                    lag.ShowBil(regnr);
+                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Biler();
+                    break;
+                case 5:
+                    Console.WriteLine("Her vises alle Bilers oplysninger");
+                    lag.ShowBilAll();
+                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Biler();
                     break;
                 default:
+                    Console.WriteLine("\nGår tilbage til Hoved-Menu");
+                    Console.Clear();
                     Menu();
                     break;
             }
