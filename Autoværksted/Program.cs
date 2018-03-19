@@ -24,7 +24,7 @@ namespace Autoværksted
             Console.WriteLine("Du er nu i Hoved-Menuen");
             Console.WriteLine("\nIndtast 1 for at gå ind i Kunde-Menu\n" +
                                 "Indtast 2 for at gå ind i Bil-Menu\n" +
-                                "Indtast 3 for at gå ind i Værksteds-Menu");
+                                "Indtast 3 for at gå ind i Værksteds-Menu\n");
 
             int.TryParse(Console.ReadLine(), out int valg);
 
@@ -64,7 +64,8 @@ namespace Autoværksted
                                 "Indtast 2 for at opdatere oplysninger på Kunde\n" +
                                 "Indtast 3 for at slette en Kunde\n" +
                                 "Indtast 4 for at vise oplysninger af en bestemt Kunde\n" +
-                                "Indtast 5 for vise alle Kunder");
+                                "Indtast 5 for vise alle Kunder\n" +
+                                "indtast 6 for at gå tilbage");
 
             int.TryParse(Console.ReadLine(), out int kunder);
 
@@ -98,11 +99,12 @@ namespace Autoværksted
                     lag.ShowKundeAll(); //Bruger metoden ShowKundeAll fra Klassen Datalag
                     break;
 
+                case 6:
+                    Menu();
+                    break;
+
                 default:
                     Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
-                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
-                    Console.ReadKey();
-                    Menu();
                     break;
             }
 
@@ -122,7 +124,8 @@ namespace Autoværksted
                                 "Indtast 2 for at opdatere oplysninger på Bil\n" +
                                 "Indtast 3 for at slette en Bil\n" +
                                 "Indtast 4 for at vise oplysninger på en bestemt Bil\n" +
-                                "Indtast 5 for vise oplysninger på alle Biler");
+                                "Indtast 5 for vise oplysninger på alle Biler\n" +
+                                "Indtast 6 for at gå tilbage til HovedMenu");
 
             int.TryParse(Console.ReadLine(), out int biler);
             Console.Clear();
@@ -155,11 +158,12 @@ namespace Autoværksted
                     lag.ShowBilAll(); //Bruger metoden ShowBilAll fra Klassen Datalag
                     break;
 
+                case 6:
+                    Menu();
+                    break;
+
                 default:
                     Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
-                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
-                    Console.ReadKey();
-                    Menu();
                     break;
             }
 
@@ -178,7 +182,8 @@ namespace Autoværksted
             Console.WriteLine("\nIndtast 1 for at oprette et Værkstedsophold\n" +
                                 "Indtast 2 for at slette et Værkstedsophold\n" +
                                 "Indtast 3 for at vise oplysninger på et bestemt Værkstedsophold\n" +
-                                "Indtast 4 for vise oplysninger på alle Værkstedsophold");
+                                "Indtast 4 for vise oplysninger på alle Værkstedsophold\n" +
+                                "Indtast 5 for at gå tilbage til HovedMenu");
 
             int.TryParse(Console.ReadLine(), out int vaerksted);
 
@@ -207,11 +212,13 @@ namespace Autoværksted
                     lag.ShowAutoRecordAll(); //Bruger metoden ShowAutoRecordAll fra Klassen Datalag
                     break;
 
+                case 5:
+                    Menu();
+                    break;
+
                 default:
                     Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
-                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
                     Console.ReadKey();
-                    Menu();
                     break;
             }
 
