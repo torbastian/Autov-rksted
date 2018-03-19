@@ -11,6 +11,7 @@ namespace Autoværksted
         //Kunder
         public void CreateKunde()
         {
+            //får fat i kunde info
             Kunde kunde = new Kunde();
             Console.WriteLine("Indtast information for kunde");
 
@@ -40,15 +41,16 @@ namespace Autoværksted
         }
 
         public void ShowKunde()
-        { //Test
-            //Hvis id > 0, vis kunde ud fra id
+        {   //få fat i Id
             Console.Write("Indtast Kunde Id: ");
             int.TryParse(Console.ReadLine(), out int id);
             
+            //Hvis id > 0, vis kunde ud fra id
             if (id > 0)
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
 
+                //Kald på sql laget for at læse
                 SQL.Read(sqlcmd);
             }
             else
@@ -56,9 +58,8 @@ namespace Autoværksted
         }
 
         public void ShowKunde(int id)
-        { //Test
+        { 
             //Hvis id > 0, vis kunde ud fra id
-
             if (id > 0)
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
@@ -70,15 +71,14 @@ namespace Autoværksted
         }
 
         public void ShowKundeAll()
-        {
-            //Vis alle kunder
+        {   //Vis alle kunder
             string sqlcmd = "select * from Kunder";
+
             SQL.Read(sqlcmd);
         }
 
         public void ShowKundeOrder()
-        {
-
+        {   //Vis kunder i valgt rækkefølge
             Console.WriteLine("I hvilken ordre?\n" +
                               "Efternavn\n" +
                               "Fornavn\n" +
@@ -89,6 +89,7 @@ namespace Autoværksted
             string parameter = string.Empty;
             string read = Console.ReadLine().ToLower().Trim();
 
+            //Find et valid input ud fra brugerns input
             switch (read)
             {
                 case "efternavn":
@@ -121,6 +122,7 @@ namespace Autoværksted
                     break;
             }
 
+            //ha order som asc som default
             string order = "asc";
 
             read = string.Empty;
@@ -134,6 +136,7 @@ namespace Autoværksted
             else if (read == "dec" || read == "descending")
                 order = "dec";
 
+            //Opret kommando og send den til sql laget
             string sqlcmd = string.Format("select * from Kunder Order by {0} {1}", parameter, order);
             SQL.Read(sqlcmd);
         }
@@ -145,6 +148,7 @@ namespace Autoværksted
             {
                 string sqlcmd = string.Format("delete from Kunder where id= {0}", id);
 
+                //Spørg om brugeren er sikker på sit input, hvis de er, kald på Sql.delete
                 if (AreYouSure())
                     SQL.Delete(sqlcmd);
             }
@@ -161,6 +165,7 @@ namespace Autoværksted
             {
                 string sqlcmd = string.Format("delete from Kunder where id= {0}", id);
 
+                //Hvis brugeren er sikker på sit input, hvis de er, kald på sql.delete
                 if (AreYouSure())
                     SQL.Delete(sqlcmd);
             }
@@ -177,16 +182,18 @@ namespace Autoværksted
             if (id < 0)
             {
                 ShowKunde(id);
-                Console.WriteLine("Hvad vil du ændre? - Indtast de følgende\n" +
+                Console.WriteLine("Hvad vil du ændre? - Indtast de ønskede følgende\n" +
                                   "Fornavn\n" +
                                   "Efternavn\n" +
                                   "Adresse\n" +
                                   "Telefon\n");
 
+                //Få fat i valg
                 string[] valgt = Console.ReadLine().Split();
 
                 Kunde kunde = new Kunde();
 
+                //Gå igennem alt i valgt og skriv data til en Kunde
                 foreach (string v in valgt)
                 {
                     switch (v.ToLower())
@@ -224,6 +231,7 @@ namespace Autoværksted
                 //Lav en liste over hvad der skal opdateres
                 List<string> ToUpdate = new List<string>();
 
+                //Hvis noget er ændret så sæt dem til ToUpdate listen
                 if (!string.IsNullOrEmpty(kunde.Fornavn))
                     ToUpdate.Add(string.Format("fornavn = '{0}'", kunde.Fornavn));
 
@@ -249,17 +257,17 @@ namespace Autoværksted
 
                 //Gør kommandoen færdig og kør den
                 sqlcmd += " where id = " + id.ToString();
-
                 SQL.Update(sqlcmd);
             }
         }
 
         //Biler
         public void CreateBil()
-        {
+        {   //Opret ny bil
             Bil bil = new Bil();
             Console.WriteLine("Indtast information for Bil");
 
+            //Få bruger input
             Console.Write("Reg nr: ");
             bil.RegNR = Console.ReadLine().Trim();
 
@@ -288,6 +296,7 @@ namespace Autoværksted
             int.TryParse(Console.ReadLine().Trim(), out int kid);
             bil.KundeID = kid;
 
+            //Hvis data er fyldt ud, lav en ny bil i databasen
             if(bil.IsFilled())
             {
                 string sqlcmd = string.Format("insert into Biler values {0}, {1}, {2}, {3}, {4}, {5}, {6}, GETDATE()"
@@ -301,7 +310,7 @@ namespace Autoværksted
         }
 
         public void ShowBil()
-        {
+        {   //Spørg om reg nr, hvis den er valid, kør kommando
             Console.Write("Indtast reg nr: ");
             string regnr = Console.ReadLine();
 
@@ -316,12 +325,10 @@ namespace Autoværksted
         }
 
         public void ShowBil(string regnr)
-        {
-
+        {   //Vis bil efter regnr
             if (!string.IsNullOrEmpty(regnr))
             {
                 string sqlcmd = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
-
                 SQL.Read(sqlcmd);
             }
             else
@@ -329,15 +336,13 @@ namespace Autoværksted
         }
 
         public void ShowBilAll()
-        {
+        {   //Vis alle biler
             string sqlcmd = "select * from Biler";
-
             SQL.Read(sqlcmd);
         }
 
         public void ShowBilOrder()
-        {
-
+        {   //Vis biler efter en bruger bestemt order
             Console.WriteLine("I hvilken ordre?\n" +
                               "regnr, " +
                               "kunde id (id), " +
@@ -352,6 +357,7 @@ namespace Autoværksted
             string parameter = string.Empty;
             string read = Console.ReadLine().ToLower().Trim();
 
+            //Få valid input fra bruger input
             switch (read)
             {
                 case "regnr":
@@ -420,18 +426,19 @@ namespace Autoværksted
 
             read = Console.ReadLine().ToLower();
 
-            //Gør idiot sikker
+            //Sorter efter valgt order
             if (read == "asc" || read == "ascending")
                 order = "asc";
             else if (read == "dec" || read == "descending")
                 order = "dec";
 
+            //Lav og kør kommando
             string sqlcmd = string.Format("select * from Biler Order by {0} {1}", parameter, order);
             SQL.Read(sqlcmd);
         }
 
         public void DeleteBil(string regnr)
-        {
+        {   //slet bil efter regnr
             if (!string.IsNullOrEmpty(regnr))
             {
                 string sqlcmd = string.Format("delete from Biler where reg_nr={0}", regnr);
@@ -444,7 +451,7 @@ namespace Autoværksted
         }
 
         public void DeleteBil()
-        {
+        {   //Slet bil efter regnr input
             Console.Write("Indtast reg nr: ");
             string regnr = Console.ReadLine();
 
@@ -460,14 +467,14 @@ namespace Autoværksted
         }
 
         public void UpdateBil()
-        {
+        {   //Opdater bil efter bruger input
             Console.Write("Indtast reg nr: ");
             string regnr = Console.ReadLine();
 
             if (!string.IsNullOrEmpty(regnr))
-            {
+            {   //Find ud af hvad brugeren vil ændre
                 ShowBil(regnr);
-                Console.WriteLine("Hvad vil du ændre? - Indtast de følgende\n" +
+                Console.WriteLine("Hvad vil du ændre? - Indtast de ønskede følgende\n" +
                                   "Regnr\n" +
                                   "KundeId\n" +
                                   "Mærke\n" +
@@ -531,7 +538,8 @@ namespace Autoværksted
                 }
 
                 List<string> ToUpdate = new List<string>();
-
+                
+                //Find ud af hvad der skal ændres
                 if (!string.IsNullOrEmpty(bil.RegNR))
                     ToUpdate.Add(string.Format("reg_nr = '{0}'", bil.RegNR));
 
@@ -558,6 +566,7 @@ namespace Autoværksted
 
                 string sqlcmd = "Update Biler Set ";
 
+                //Skriv kommandoen
                 for (int i = 0; i < ToUpdate.Count; i++)
                 {
                     sqlcmd += ToUpdate[i];
@@ -574,7 +583,7 @@ namespace Autoværksted
 
         //Autoværksted
         public void NewAutoRecord()
-        {
+        {   //Opret ny værksteds log
             Console.Write("Opret nyt værksteds besøg\nIndtast Kunde id: ");
             string id = Console.ReadLine();
 
@@ -587,7 +596,7 @@ namespace Autoværksted
         }
 
         public void ShowAutoRecord()
-        {
+        {   //Vis værksteds log
             Console.Write("Vis værksteds besøg\nIndtast besøg id: ");
             string id = Console.ReadLine();
 
@@ -597,28 +606,22 @@ namespace Autoværksted
         }
 
         public void ShowAutoRecordAll()
-        {
+        {   //Vis alle værksteds logs
             string sqlcmd = string.Format("select * from vaerkstedsophold");
             SQL.Read(sqlcmd);
         }
 
         public void DeleteAutoRecord()
-        {
+        {   //Slet værksteds log
             Console.Write("Slet værksteds besøg\nIndtast besøg id: ");
             string id = Console.ReadLine();
 
             string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
         }
 
-        //Innerjoin
-        public void InnerJoin()
-        {
-
-        }
-
         //diverse
         public bool AreYouSure()
-        {
+        {   //Er du sikker metode, spørg om brugeren er sikker på sit input
             Console.WriteLine("Er du sikker? Y/N");
             if (Console.ReadLine().ToLower() == "y")
                 return true;
