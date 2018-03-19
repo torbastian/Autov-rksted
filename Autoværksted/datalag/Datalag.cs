@@ -313,7 +313,7 @@ namespace Autoværksted
             //Hvis data er fyldt ud, lav en ny bil i databasen
             if(bil.IsFilled())
             {
-                string sqlcmd = string.Format("insert into Biler values {0}, {1}, {2}, {3}, {4}, {5}, {6}, GETDATE()"
+                string sqlcmd = string.Format("insert into Biler values ('{0}', {1}, '{2}', '{3}', {4}, {5}, '{6}', {7}, GETDATE())"
                                               , bil.RegNR, bil.KundeID, bil.Maerke, bil.Model, bil.Aargang, bil.Km, bil.Braendstof, bil.Kml);
 
                 SQL.Create(sqlcmd);
