@@ -23,8 +23,8 @@ namespace Autoværksted
             //Switch som sender en ud til de forskellige menuer ud fra valgte tal.
             Console.WriteLine("Du er nu i Hoved-Menuen");
             Console.WriteLine("\nIndtast 1 for at gå ind i Kunde-Menu\n" +
-                "Indtast 2 for at gå ind i Bil-Menu\n" +
-                "Indtast 3 for at gå ind i Værksteds-Menu");
+                                "Indtast 2 for at gå ind i Bil-Menu\n" +
+                                "Indtast 3 for at gå ind i Værksteds-Menu");
 
             int.TryParse(Console.ReadLine(), out int valg);
 
