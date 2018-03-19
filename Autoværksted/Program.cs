@@ -23,8 +23,8 @@ namespace Autoværksted
             //Switch som sender en ud til de forskellige menuer ud fra valgte tal.
             Console.WriteLine("Du er nu i Hoved-Menuen");
             Console.WriteLine("\nIndtast 1 for at gå ind i Kunde-Menu\n" +
-                "Indtast 2 for at gå ind i Bil-Menu\n" +
-                "Indtast 3 for at gå ind i Værksteds-Menu");
+                                "Indtast 2 for at gå ind i Bil-Menu\n" +
+                                "Indtast 3 for at gå ind i Værksteds-Menu");
 
             int.TryParse(Console.ReadLine(), out int valg);
 
@@ -62,7 +62,7 @@ namespace Autoværksted
             int kunder = 0;
             Console.WriteLine("Du har valgt Kunder");
             Console.WriteLine("\nIndtast 1 for at oprette en Kunde\n" +
-                                "Indtast 2 for at Updatere oplysninger på Kunde\n" +
+                                "Indtast 2 for at Opdatere oplysninger på Kunde\n" +
                                 "Indtast 3 for at slette en Kunde\n" +
                                 "Indtast 4 for at vise oplysninger af Kunde\n" +
                                 "Indtast 5 for vise alle Kunder");
@@ -120,7 +120,7 @@ namespace Autoværksted
             int biler = 0;
             Console.WriteLine("Du har valgt Biler");
             Console.WriteLine("\nIndtast 1 for at oprette en Bil\n" +
-                                "Indtast 2 for at Updatere oplysninger på Bil\n" +
+                                "Indtast 2 for at Opdatere oplysninger på Bil\n" +
                                 "Indtast 3 for at slette en Bil\nIndtast 4 for at vise oplysninger af bil\n" +
                                 "Indtast 5 for vise alle Biler");
 
@@ -136,7 +136,7 @@ namespace Autoværksted
                     break;
 
                 case 2:
-                    Console.WriteLine("\nHer updatere du din Bils oplysninger");
+                    Console.WriteLine("\nHer Opdatere du din Bils oplysninger");
                     lag.UpdateBil(); //Bruger metoden UpdateBil fra Klassen Datalag
                     break;
 
