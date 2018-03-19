@@ -614,20 +614,30 @@ namespace Autoværksted
 
         //Autoværksted <-<-<-<-<-<-<-<-<-<-
         public void NewAutoRecord()
-        {   //Opret ny værksteds log
+        {   //Opret ny værksteds ophold
             Console.Write("Opret nyt værksteds besøg\nIndtast Kunde id: ");
             string id = Console.ReadLine();
 
             Console.Write("\nIndtast Reg nr: ");
             string regnr = Console.ReadLine();
 
-            string sqlcmd = string.Format("insert into vaerkstedsophold (dato, kunde_id, fk_reg_nr) values (GETDATE(), {0}, '{1}')", id, regnr);
+            Console.Write("\nIndtast Dato YYYY-MM-DD (Blank hvis nu): ");
+            string rl = Console.ReadLine();
+
+            string date = string.Empty;
+
+            if (string.IsNullOrEmpty(rl))
+                date = "GETDATE()";
+            else
+                date = string.Format("'{0}'", rl);
+
+            string sqlcmd = string.Format("insert into vaerkstedsophold (dato, kunde_id, fk_reg_nr) values ({0}, {1}, '{2}')", date, id, regnr);
 
             SQL.Create(sqlcmd);
         }
 
         public void ShowAutoRecord()
-        {   //Vis værksteds log
+        {   //Vis værksteds ophold
             Console.Write("Vis værksteds besøg\nIndtast besøg id: ");
             string id = Console.ReadLine();
 
@@ -637,13 +647,13 @@ namespace Autoværksted
         }
 
         public void ShowAutoRecordAll()
-        {   //Vis alle værksteds logs
+        {   //Vis alle værksteds ophold
             string sqlcmd = string.Format("select * from vaerkstedsophold");
             SQL.Read(sqlcmd);
         }
 
         public void DeleteAutoRecord()
-        {   //Slet værksteds log
+        {   //Slet værksteds ophold
             Console.Write("Slet værksteds besøg\nIndtast besøg id: ");
             string id = Console.ReadLine();
 
