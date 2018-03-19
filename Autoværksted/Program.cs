@@ -66,48 +66,41 @@ namespace Autoværksted
                 case 1:
                     Console.WriteLine("\nHer opretter man en ny Kunde");
                     lag.CreateKunde(); //Bruger metoden Createkunde fra Klassen Datalag 
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
-                    Console.ReadKey();
                     Kunder();
                     break;
 
                 case 2:
                     Console.WriteLine("\nHer kan du skifte dine kunde oplysninger");
                     lag.UpdateKunde(); //Bruger metoden UpdateKunde fra Klassen Datalag 
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
-                    Console.ReadKey();
-                    Kunder();
                     break;
 
                 case 3:
                     Console.WriteLine("\nHer kan man Slette en kunde");
                     lag.DeleteKunde(); //Bruger metoden DeleteKunde fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
-                    Console.ReadKey();
-                    Kunder();
                     break;
 
                 case 4:
                     Console.WriteLine("\nHer vises Kundeoversigt på individuel Kunde");
                     lag.ShowKunde(); //Bruger metoden ShowKunde fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
-                    Console.ReadKey();
-                    Kunder();
                     break;
+
                 case 5:
                     Console.WriteLine("\nHer vises Kundeoversigt på alle Kunder");
                     lag.ShowKundeAll(); //Bruger metoden ShowKundeAll fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
-                    Console.ReadKey();
-                    Kunder();
                     break;
+
                 default:
                     Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
                     Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
                     Console.ReadKey();
                     Menu();
                     break;
+
+
             }
+            Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
+            Console.ReadKey();
+            Kunder();
         }
 
 
@@ -127,38 +120,28 @@ namespace Autoværksted
                 case 1:
                     Console.WriteLine("\nHer opretter du din bil");
                     lag.CreateBil(); //Bruger metoden CreateBil fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
-                    Console.ReadKey();
-                    Biler();
                     break;
+
                 case 2:
                     Console.WriteLine("\nHer updatere du din Bils oplysninger");
                     lag.UpdateBil(); //Bruger metoden UpdateBil fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
-                    Console.ReadKey();
-                    Biler();
                     break;
+
                 case 3:
                     Console.WriteLine("\nHer kan man slette en Bil");
                     lag.DeleteBil(); //Bruger metoden DeleteBil fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
-                    Console.ReadKey();
-                    Biler();
                     break;
+
                 case 4:
                     Console.WriteLine("\nHer kan du se oplysninger på valgte Bil");
                     lag.ShowBil(); //Bruger metoden ShowBil fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
-                    Console.ReadKey();
-                    Biler();
                     break;
+
                 case 5:
                     Console.WriteLine("\nHer vises alle Bilers oplysninger");
                     lag.ShowBilAll(); //Bruger metoden ShowBilAll fra Klassen Datalag
-                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
-                    Console.ReadKey();
-                    Biler();
                     break;
+
                 default:
                     Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
                     Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
@@ -166,6 +149,9 @@ namespace Autoværksted
                     Menu();
                     break;
             }
+            Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
+            Console.ReadKey();
+            Biler();
         }
 
         static public void Vaerksted()

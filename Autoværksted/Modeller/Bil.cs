@@ -19,53 +19,46 @@ namespace Autoværksted
         private int kundeID;
 
         //Properties
-
         //henter field regNR
         public string RegNR
         {
             get { return regNR; }
             set { regNR = value; }
         }
-
         //henter field maerke
         public string Maerke
         {
             get { return maerke; }
             set { maerke = value; }
         }
-
         //henter field model
         public string Model
         {
             get { return model; }
             set { model = value; }
         }
-
+        //henter field braendstof
         public string Braendstof {
             get { return braendstof; }
             set { braendstof = value; }
         }
-
         //henter field aargang
         public int Aargang
         {
             get { return aargang; }
             set { aargang = value; }
         }
-
         //henter field km
         public int Km
         {
             get { return km; }
             set { km = value; }
         }
-
         //Henter field kml
         public float Kml {
             get { return kml; }
             set { kml = value; }
         }
-
         //henter field kundeID
         public int KundeID
         {
@@ -73,6 +66,7 @@ namespace Autoværksted
             set { kundeID = value; }
         }
 
+        //Metode
         public bool IsFilled()
         {
             int fillCount = 0;

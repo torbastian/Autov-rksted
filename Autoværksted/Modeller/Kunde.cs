@@ -15,26 +15,28 @@ namespace Autoværksted
         private string tlf;
 
         //Properties
+        //henter field fornavn
         public string Fornavn {
             get { return fornavn; }
             set { fornavn = value; }
         }
-
+        //henter field efternavn
         public string Efternavn {
             get { return efternavn; }
             set { efternavn = value; }
         }
-
+        //henter field adresse
         public string Adresse {
             get { return adresse; }
             set { adresse = value; }
         }
-
+        //henter field tlf
         public string Tlf {
             get { return tlf; }
             set { tlf = value; }
         }
 
+        //Metode
         public bool IsFilled()
         {
             int fillCount = 0;
