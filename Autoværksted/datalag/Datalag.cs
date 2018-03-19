@@ -624,6 +624,7 @@ namespace Autoværksted
             string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
         }
 
+
         //diverse
         public bool AreYouSure()
         {   //Er du sikker metode, spørg om brugeren er sikker på sit input
