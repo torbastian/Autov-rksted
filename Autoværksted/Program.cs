@@ -19,8 +19,10 @@ namespace Autoværksted
         static void Menu()
         {
             {
+                Console.WriteLine("Du er nu i Hoved-Menuen");
                 Datalag lag = new Datalag();
                 int.TryParse(Console.ReadLine(), out int valg);
+                Console.WriteLine("\nIndtast 1 for at gå ind i Kunde-Menu\nIndtast 2 for at gå ind i Bil-Menu\nIndtast 3 for at gå ind i Værksteds-Menu");
                 switch (valg)
                 {
                     case 1:
@@ -37,7 +39,7 @@ namespace Autoværksted
                         Menu();
                         break;
                 }
-
+                Console.Clear();
                 Console.ReadKey();
             }
         }
@@ -48,57 +50,65 @@ namespace Autoværksted
             int kunder = 0;
             int kundeid = 0;
             Console.WriteLine("Du har valgt Kunder");
+            Console.WriteLine("\nIndtast 1 for at oprette en Kunde\nIndtast 2 for at Updatere oplysninger på Kunde\nIndtast 3 for at slette en Kunde\nIndtast 4 for at vise oplysninger af Kunde\nIndtast 5 for vise alle Kunder");
             kunder = Convert.ToInt16(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("Du har valgt Kunder");
             switch (kunder)
             {
                 case 1:
-                    Console.WriteLine("Opretter ny Kunde");
+                    Console.WriteLine("\nHer opretter man en ny Kunde");
                     lag.CreateKunde();
-                    Console.WriteLine("\nGår tilbage til Kunde-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
+                    Console.ReadKey();
                     Console.Clear();
                     Kunder();
                     break;
 
                 case 2:
-                    Console.WriteLine("Her kan du skifte dine kunde oplysninger");
+                    Console.WriteLine("\nHer kan du skifte dine kunde oplysninger");
                     Console.Write("Indtast dit Kunde id: ");
                     kundeid = Convert.ToInt16(Console.ReadLine());
                     lag.UpdateKunde(kundeid);
-                    Console.WriteLine("\nGår tilbage til Kunde-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
+                    Console.ReadKey();
                     Console.Clear();
                     Kunder();
                     break;
 
                 case 3:
-                    Console.WriteLine("Sletter kunde");
+                    Console.WriteLine("\nHer kan man Slette en kunde");
                     Console.WriteLine("\nIndtast kunde ud fra Kundens id");
                     kundeid = Convert.ToInt16(Console.ReadLine());
                     lag.DeleteKunde(kundeid);
-                    Console.WriteLine("\nGår tilbage til Kunde-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
+                    Console.ReadKey();
                     Console.Clear();
                     Kunder();
                     break;
 
                 case 4:
-                    Console.WriteLine("Kundeoversigt");
+                    Console.WriteLine("\nHer vises Kundeoversigt på individuel Kunde");
                     Console.WriteLine("\nIndtast kundes Id");
                     kundeid = Convert.ToInt16(Console.ReadLine());
                     lag.ShowKunde(kundeid);
-                    Console.WriteLine("\nGår tilbage til Kunde-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
                     Console.ReadKey();
                     Console.Clear();
                     Kunder();
                     break;
                 case 5:
-                    Console.WriteLine("Alle Kunder");
+                    Console.WriteLine("\nHer vises Kundeoversigt på alle Kunder");
                     lag.ShowKundeAll();
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
                     Console.ReadKey();
-                    Console.WriteLine("\nGår tilbage til Kunde-Menu");
                     Console.Clear();
                     Kunder();
                     break;
                 default:
-                    Console.WriteLine("\nGår tilbage til Hoved-Menu");
+                    Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
+                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
+                    Console.ReadKey();
                     Console.Clear();
                     Menu();
                     break;
@@ -113,49 +123,57 @@ namespace Autoværksted
             int biler = 0;
             string regnr = "";
             Console.WriteLine("Du har valgt Biler");
-            Console.WriteLine("\nIndtast 1 for at oprette en Bil\nIndtast 2 for at Updatere oplysninger på Bil\nIndtast 3 for at slette en Bil\nIndtast 4 for at vise oplysninger af bil\nIndtast 5 for vise alle  Biler");
+            Console.WriteLine("\nIndtast 1 for at oprette en Bil\nIndtast 2 for at Updatere oplysninger på Bil\nIndtast 3 for at slette en Bil\nIndtast 4 for at vise oplysninger af bil\nIndtast 5 for vise alle Biler");
             biler = Convert.ToInt16(Console.ReadLine());
-
+            Console.Clear();
+            Console.WriteLine("Du har valgt Biler");
             switch (biler)
             {
                 case 1:
-                    Console.WriteLine("Her opretter du din bil");
+                    Console.WriteLine("\nHer opretter du din bil");
                     lag.CreateBil();
-                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
+                    Console.ReadKey();
                     Biler();
                     break;
                 case 2:
-                    Console.WriteLine("Her updatere du din Bils oplysninger");
+                    Console.WriteLine("\nHer updatere du din Bils oplysninger");
                     Console.Write("Indtast Bilens RegNr: ");
                     regnr = Console.ReadLine();
                     lag.UpdateBil(regnr);
-                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
+                    Console.ReadKey();
                     Biler();
                     break;
                 case 3:
-                    Console.WriteLine("Sletter Bil");
+                    Console.WriteLine("\nHer kan man slette en Bil");
                     Console.Write("Indtast Bilens RegNr: ");
                     regnr = Console.ReadLine();
                     lag.DeleteBil(regnr);
-                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
+                    Console.ReadKey();
                     Biler();
                     break;
                 case 4:
-                    Console.WriteLine("Her kan du se oplysninger på valgte Bil");
+                    Console.WriteLine("\nHer kan du se oplysninger på valgte Bil");
                     Console.Write("Indtast Bilens RegNr: ");
                     regnr = Console.ReadLine();
                     lag.ShowBil(regnr);
-                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
+                    Console.ReadKey();
                     Biler();
                     break;
                 case 5:
-                    Console.WriteLine("Her vises alle Bilers oplysninger");
+                    Console.WriteLine("\nHer vises alle Bilers oplysninger");
                     lag.ShowBilAll();
-                    Console.WriteLine("\nGår tilbage til Bil-Menu");
+                    Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
+                    Console.ReadKey();
                     Biler();
                     break;
                 default:
-                    Console.WriteLine("\nGår tilbage til Hoved-Menu");
+                    Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
+                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
+                    Console.ReadKey();
                     Console.Clear();
                     Menu();
                     break;
