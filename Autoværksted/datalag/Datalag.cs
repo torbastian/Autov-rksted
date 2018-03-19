@@ -10,8 +10,7 @@ namespace Autoværksted
     {
         //Kunder
         public void CreateKunde()
-        {
-            //får fat i kunde info
+        {   //får fat i kunde info
             Kunde kunde = new Kunde();
             Console.WriteLine("Indtast information for kunde");
 
@@ -58,8 +57,7 @@ namespace Autoværksted
         }
 
         public void ShowKunde(int id)
-        { 
-            //Hvis id > 0, vis kunde ud fra id
+        {   //Hvis id > 0, vis kunde ud fra id
             if (id > 0)
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
@@ -73,7 +71,6 @@ namespace Autoværksted
         public void ShowKundeAll()
         {   //Vis alle kunder
             string sqlcmd = "select * from Kunder";
-
             SQL.Read(sqlcmd);
         }
 
@@ -158,7 +155,8 @@ namespace Autoværksted
 
         public void DeleteKunde()
         {
-            Console.Write("Indtast Kunde Id: ");
+            ShowKundeAll();
+            Console.Write("\nIndtast Kunde Id: ");
             int.TryParse(Console.ReadLine(), out int id);
             //Hvis id > 0, slet kunde ud fra id
             if (id > 0)
@@ -175,11 +173,15 @@ namespace Autoværksted
 
         public void UpdateKunde()
         {
-            Console.Write("Indtast kunde id: ");
-            int.TryParse(Console.ReadLine(), out int id);
+            ShowKundeAll();
+
+            Console.WriteLine("\nIndtast kunde id: ");
+            string kid = Console.ReadLine();
+
+            int.TryParse(kid, out int id);
 
             //Hvis id < 0, Spørg hvad man vil ændre
-            if (id < 0)
+            if (id > 0)
             {
                 ShowKunde(id);
                 Console.WriteLine("Hvad vil du ændre? - Indtast de ønskede følgende\n" +
@@ -236,7 +238,7 @@ namespace Autoværksted
                     ToUpdate.Add(string.Format("fornavn = '{0}'", kunde.Fornavn));
 
                 if (!string.IsNullOrEmpty(kunde.Efternavn))
-                    ToUpdate.Add(string.Format("efternavn = '{0}", kunde.Efternavn));
+                    ToUpdate.Add(string.Format("efternavn = '{0}'", kunde.Efternavn));
 
                 if (!string.IsNullOrEmpty(kunde.Adresse))
                     ToUpdate.Add(string.Format("adresse = '{0}'", kunde.Adresse));
@@ -306,7 +308,6 @@ namespace Autoværksted
             }
             else
                 Console.WriteLine("Fejl! - I input");
-
         }
 
         public void ShowBil()
@@ -452,7 +453,9 @@ namespace Autoværksted
 
         public void DeleteBil()
         {   //Slet bil efter regnr input
-            Console.Write("Indtast reg nr: ");
+            ShowBilAll();
+        
+            Console.Write("\nIndtast reg nr: ");
             string regnr = Console.ReadLine();
 
             if (!string.IsNullOrEmpty(regnr))
@@ -467,8 +470,11 @@ namespace Autoværksted
         }
 
         public void UpdateBil()
-        {   //Opdater bil efter bruger input
-            Console.Write("Indtast reg nr: ");
+        {
+            ShowBilAll();
+            
+            //Opdater bil efter bruger input
+            Console.Write("\nIndtast reg nr: ");
             string regnr = Console.ReadLine();
 
             if (!string.IsNullOrEmpty(regnr))
@@ -576,7 +582,6 @@ namespace Autoværksted
                 }
 
                 sqlcmd += string.Format(" where reg_nr = '{0}'", regnr);
-
                 SQL.Update(sqlcmd);
             }
         }

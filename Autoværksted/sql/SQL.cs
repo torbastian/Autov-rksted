@@ -26,9 +26,7 @@ namespace Autoværksted
                     //Execute kommando
                     int oprettet = cmd.ExecuteNonQuery();
 
-                    Console.WriteLine("Oprettet! - Tryk en tast");
-
-                    Console.ReadKey();
+                    Console.WriteLine("Oprettet!");
                 }
             }
             catch (Exception e)
@@ -38,7 +36,6 @@ namespace Autoværksted
         }
         public static void Read(string sql)
         {
-
             try
             {
                 using (SqlConnection con = new SqlConnection(ConnectionString))
@@ -57,7 +54,10 @@ namespace Autoværksted
                                 if (i < (reader.FieldCount - 1))
                                     Console.Write(string.Format("{0}, ", reader.GetValue(i)));
                                 else
-                                    Console.Write(reader.GetValue(i) + "\n");
+                                {
+                                    Console.Write(reader.GetValue(i));
+                                    Console.WriteLine();
+                                }
                             }
                         }
                     }
@@ -83,11 +83,9 @@ namespace Autoværksted
                     int slettet = cmd.ExecuteNonQuery();
 
                     if (slettet > 0)
-                        Console.WriteLine("Slettet! - Tryk en tast");
+                        Console.WriteLine("Slettet!");
                     else
-                        Console.WriteLine("Ikke fundet - Tryk en tast");
-
-                    Console.ReadKey();
+                        Console.WriteLine("Ikke fundet!");
                 }
             }
             catch (Exception e)
@@ -110,11 +108,9 @@ namespace Autoværksted
                     int updated = cmd.ExecuteNonQuery();
 
                     if (updated > 0)
-                        Console.WriteLine("Opdateret! - Tryk en tast");
+                        Console.WriteLine("Opdateret!");
                     else
-                        Console.WriteLine("Ikke fundet - Tryk en tast");
-
-                    Console.ReadKey();
+                        Console.WriteLine("Ikke fundet!");
                 }
             }
             catch (Exception e)
