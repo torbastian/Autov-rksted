@@ -113,6 +113,12 @@ namespace Autoværksted
                     parameter = read;
                     break;
 
+                case "b":
+                    return;
+
+                case "back":
+                    return;
+
                 default:
                     Console.WriteLine("Ukendt input");
                     ShowKundeOrder();
@@ -224,6 +230,12 @@ namespace Autoværksted
                             Console.WriteLine("Indtast nyt Telefon nr");
                             kunde.Tlf = Console.ReadLine().Trim();
                             break;
+
+                        case "b":
+                            return;
+
+                        case "back":
+                            return;
 
                         default:
                             break;
@@ -413,6 +425,12 @@ namespace Autoværksted
                     parameter = read;
                     break;
 
+                case "b":
+                    return;
+
+                case "back":
+                    return;
+
                 default:
                     Console.WriteLine("Ukendt input");
                     ShowBilOrder();
@@ -488,7 +506,8 @@ namespace Autoværksted
                                   "Årgang\n" +
                                   "Km\n" +
                                   "Brændstof\n" +
-                                  "Kml\n");
+                                  "Kml\n" +
+                                  "Back (b) For at komme tilbage");
 
                 string[] valgt = Console.ReadLine().Split();
 
@@ -538,6 +557,13 @@ namespace Autoværksted
                             float.TryParse(Console.ReadLine(), out float kml);
                             bil.Kml = kml;
                             break;
+
+                        case "b":
+                            return;
+
+                        case "back":
+                            return;
+
                         default:
                             break;
                     }
@@ -592,7 +618,7 @@ namespace Autoværksted
             Console.Write("Opret nyt værksteds besøg\nIndtast Kunde id: ");
             string id = Console.ReadLine();
 
-            Console.Write("\nIndtast Reg nr");
+            Console.Write("\nIndtast Reg nr: ");
             string regnr = Console.ReadLine();
 
             string sqlcmd = string.Format("insert into vaerkstedsophold (dato, kunde_id, fk_reg_nr) values (GETDATE(), {0}, '{1}')", id, regnr);
@@ -622,6 +648,7 @@ namespace Autoværksted
             string id = Console.ReadLine();
 
             string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
+            SQL.Delete(sqlcmd);
         }
 
 
