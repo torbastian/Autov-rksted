@@ -130,14 +130,14 @@ namespace Autoværksted
 
             read = string.Empty;
 
-            Console.WriteLine("Ascending (asc) eller Descending (dec)");
+            Console.WriteLine("Ascending (asc) eller Descending (desc)");
 
             read = Console.ReadLine().ToLower();
 
             if (read == "asc" || read == "ascending")
                 order = "asc";
-            else if (read == "dec" || read == "descending")
-                order = "dec";
+            else if (read == "desc" || read == "descending")
+                order = "desc";
 
             //Opret kommando og send den til sql laget
             string sqlcmd = string.Format("select * from Kunder Order by {0} {1}", parameter, order);
@@ -441,15 +441,15 @@ namespace Autoværksted
 
             read = string.Empty;
 
-            Console.WriteLine("Ascending (asc) eller Descending (dec)");
+            Console.WriteLine("Ascending (asc) eller Descending (desc)");
 
             read = Console.ReadLine().ToLower();
 
             //Sorter efter valgt order
             if (read == "asc" || read == "ascending")
                 order = "asc";
-            else if (read == "dec" || read == "descending")
-                order = "dec";
+            else if (read == "desc" || read == "descending")
+                order = "desc";
 
             //Lav og kør kommando
             string sqlcmd = string.Format("select * from Biler Order by {0} {1}", parameter, order);
