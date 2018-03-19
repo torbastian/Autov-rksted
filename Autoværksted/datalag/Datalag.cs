@@ -152,6 +152,22 @@ namespace Autoværksted
                 Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
         }
 
+        public void DeleteKunde()
+        {
+            Console.Write("Indtast Kunde Id: ");
+            int.TryParse(Console.ReadLine(), out int id);
+            //Hvis id > 0, slet kunde ud fra id
+            if (id > 0)
+            {
+                string sqlcmd = string.Format("delete from Kunder where id= {0}", id);
+
+                if (AreYouSure())
+                    SQL.Delete(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
+        }
+
         public void UpdateKunde()
         {
             Console.Write("Indtast kunde id: ");
@@ -416,6 +432,22 @@ namespace Autoværksted
 
         public void DeleteBil(string regnr)
         {
+            if (!string.IsNullOrEmpty(regnr))
+            {
+                string sqlcmd = string.Format("delete from Biler where reg_nr={0}", regnr);
+
+                if (AreYouSure())
+                    SQL.Delete(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - Tom regnr");
+        }
+
+        public void DeleteBil()
+        {
+            Console.Write("Indtast reg nr: ");
+            string regnr = Console.ReadLine();
+
             if (!string.IsNullOrEmpty(regnr))
             {
                 string sqlcmd = string.Format("delete from Biler where reg_nr={0}", regnr);
