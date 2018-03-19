@@ -39,9 +39,26 @@ namespace Autoværksted
                 Console.WriteLine("Fejl! - I input");
         }
 
+        public void ShowKunde()
+        { //Test
+            //Hvis id > 0, vis kunde ud fra id
+            Console.Write("Indtast Kunde Id: ");
+            int.TryParse(Console.ReadLine(), out int id);
+            
+            if (id > 0)
+            {
+                string sqlcmd = string.Format("select * from Kunder where id={0}", id);
+
+                SQL.Read(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
+        }
+
         public void ShowKunde(int id)
         { //Test
             //Hvis id > 0, vis kunde ud fra id
+
             if (id > 0)
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
@@ -126,7 +143,7 @@ namespace Autoværksted
             //Hvis id > 0, slet kunde ud fra id
             if (id > 0)
             {
-                string sqlcmd = string.Format("delete from Kunder where id={0}", id);
+                string sqlcmd = string.Format("delete from Kunder where id= {0}", id);
 
                 if (AreYouSure())
                     SQL.Delete(sqlcmd);
@@ -135,8 +152,11 @@ namespace Autoværksted
                 Console.WriteLine("Fejl! - Ingen kunder har id på 0 eller lavere");
         }
 
-        public void UpdateKunde(int id)
+        public void UpdateKunde()
         {
+            Console.Write("Indtast kunde id: ");
+            int.TryParse(Console.ReadLine(), out int id);
+
             //Hvis id < 0, Spørg hvad man vil ændre
             if (id < 0)
             {
@@ -264,11 +284,27 @@ namespace Autoværksted
 
         }
 
-        public void ShowBil(string regnr)
+        public void ShowBil()
         {
+            Console.Write("Indtast reg nr: ");
+            string regnr = Console.ReadLine();
+
             if (!string.IsNullOrEmpty(regnr))
             {
-                string sqlcmd = string.Format("select * from Biler where reg_nr={0}", regnr);
+                string sqlcmd = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
+
+                SQL.Read(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - Tom regnr");
+        }
+
+        public void ShowBil(string regnr)
+        {
+
+            if (!string.IsNullOrEmpty(regnr))
+            {
+                string sqlcmd = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
 
                 SQL.Read(sqlcmd);
             }
@@ -287,11 +323,14 @@ namespace Autoværksted
         {
 
             Console.WriteLine("I hvilken ordre?\n" +
-                              "kunde id (id)\n" +
-                              "mærke (maerke)\n" +
-                              "model\n" +
-                              "Årgang (aargang)\n" +
-                              "KM\n" +
+                              "regnr, " +
+                              "kunde id (id), " +
+                              "mærke (maerke), " +
+                              "model, " +
+                              "Årgang (aargang), " +
+                              "Km, " +
+                              "Brændstof (braendstof), " +
+                              "Kml, " +
                               "Oprettelses Dato (Dato)");
 
             string parameter = string.Empty;
@@ -299,19 +338,47 @@ namespace Autoværksted
 
             switch (read)
             {
-                case "efternavn":
+                case "regnr":
                     parameter = read;
                     break;
 
-                case "fornavn":
+                case "kundeid":
                     parameter = read;
                     break;
 
-                case "id":
+                case "mærke":
                     parameter = read;
                     break;
 
-                case "adresse":
+                case "maerke":
+                    parameter = read;
+                    break;
+
+                case "model":
+                    parameter = read;
+                    break;
+
+                case "årgang":
+                    parameter = read;
+                    break;
+
+                case "aargang":
+                    parameter = read;
+                    break;
+
+                case "km":
+                    parameter = read;
+                    break;
+
+                case "brændstof":
+                    parameter = read;
+                    break;
+
+                case "braendstof":
+                    parameter = read;
+                    break;
+
+                case "kml":
                     parameter = read;
                     break;
 
@@ -325,7 +392,7 @@ namespace Autoværksted
 
                 default:
                     Console.WriteLine("Ukendt input");
-                    ShowKundeOrder();
+                    ShowBilOrder();
                     break;
             }
 
@@ -337,6 +404,7 @@ namespace Autoværksted
 
             read = Console.ReadLine().ToLower();
 
+            //Gør idiot sikker
             if (read == "asc" || read == "ascending")
                 order = "asc";
             else if (read == "dec" || read == "descending")
@@ -359,8 +427,11 @@ namespace Autoværksted
                 Console.WriteLine("Fejl! - Tom regnr");
         }
 
-        public void UpdateBil(string regnr)
+        public void UpdateBil()
         {
+            Console.Write("Indtast reg nr: ");
+            string regnr = Console.ReadLine();
+
             if (!string.IsNullOrEmpty(regnr))
             {
                 ShowBil(regnr);
@@ -463,10 +534,48 @@ namespace Autoværksted
                         sqlcmd += ", ";
                 }
 
-                sqlcmd += " where reg_nr = " + regnr;
+                sqlcmd += string.Format(" where reg_nr = '{0}'", regnr);
 
                 SQL.Update(sqlcmd);
             }
+        }
+
+        //Autoværksted
+        public void NewAutoRecord()
+        {
+            Console.Write("Opret nyt værksteds besøg\nIndtast Kunde id: ");
+            string id = Console.ReadLine();
+
+            Console.Write("\nIndtast Reg nr");
+            string regnr = Console.ReadLine();
+
+            string sqlcmd = string.Format("insert into vaerkstedsophold (dato, kunde_id, fk_reg_nr) values (GETDATE(), {0}, '{1}')", id, regnr);
+
+            SQL.Create(sqlcmd);
+        }
+
+        public void ShowAutoRecord()
+        {
+            Console.Write("Vis værksteds besøg\nIndtast besøg id: ");
+            string id = Console.ReadLine();
+
+            string sqlcmd = string.Format("select * from vaerkstedsophold where id= {0}", id);
+
+            SQL.Read(sqlcmd);
+        }
+
+        public void ShowAutoRecordAll()
+        {
+            string sqlcmd = string.Format("select * from vaerkstedsophold");
+            SQL.Read(sqlcmd);
+        }
+
+        public void DeleteAutoRecord()
+        {
+            Console.Write("Slet værksteds besøg\nIndtast besøg id: ");
+            string id = Console.ReadLine();
+
+            string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
         }
 
         //Innerjoin
