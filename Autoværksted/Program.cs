@@ -59,7 +59,6 @@ namespace Autoværksted
             Console.Clear();
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
             Datalag lag = new Datalag();
-            int kunder = 0;
             Console.WriteLine("Du har valgt Kunder");
             Console.WriteLine("\nIndtast 1 for at oprette en Kunde\n" +
                                 "Indtast 2 for at opdatere oplysninger på Kunde\n" +
@@ -67,7 +66,8 @@ namespace Autoværksted
                                 "Indtast 4 for at vise oplysninger af en bestemt Kunde\n" +
                                 "Indtast 5 for vise alle Kunder");
 
-            kunder = Convert.ToInt16(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out int kunder);
+
             Console.Clear();
             Console.WriteLine("Du har valgt Kunder");
 
@@ -117,7 +117,6 @@ namespace Autoværksted
             Console.Clear();
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
             Datalag lag = new Datalag();
-            int biler = 0;
             Console.WriteLine("Du har valgt Biler");
             Console.WriteLine("\nIndtast 1 for at oprette en Bil\n" +
                                 "Indtast 2 for at opdatere oplysninger på Bil\n" +
@@ -125,7 +124,7 @@ namespace Autoværksted
                                 "Indtast 4 for at vise oplysninger på en bestemt Bil\n" +
                                 "Indtast 5 for vise oplysninger på alle Biler");
 
-            biler = Convert.ToInt16(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out int biler);
             Console.Clear();
             Console.WriteLine("Du har valgt Biler");
 
@@ -175,14 +174,16 @@ namespace Autoværksted
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
             Datalag lag = new Datalag();
 
-            int vaerksted = 0;
             Console.WriteLine("Du har valgt Værkstedophold");
             Console.WriteLine("\nIndtast 1 for at oprette et Værkstedsophold\n" +
                                 "Indtast 2 for at slette et Værkstedsophold\n" +
                                 "Indtast 3 for at vise oplysninger på et bestemt Værkstedsophold\n" +
                                 "Indtast 4 for vise oplysninger på alle Værkstedsophold");
 
-            vaerksted = Convert.ToInt16(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out int vaerksted);
+
+            Console.Clear();
+            Console.WriteLine("Du har valgt Værkstedophold");
 
             switch (vaerksted)
             {
@@ -207,11 +208,14 @@ namespace Autoværksted
                     break;
 
                 default:
+                    Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
+                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
+                    Console.ReadKey();
                     Menu();
                     break;
             }
 
-            Console.WriteLine("\nTryk på tast for at gå tilbage til Vaerksteds-Menu");
+            Console.WriteLine("\nTryk på tast for at gå tilbage til Værksteds-Menu");
             Console.ReadKey();
             Vaerksted();
         }
