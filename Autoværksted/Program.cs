@@ -19,34 +19,38 @@ namespace Autoværksted
         //Dette er metoden menu den består af en switch og returnere ingenting
         static void Menu()
         {
-            {
-                Console.Clear();
-                //Switch som sender en ud til de forskellige menuer ud fra valgte tal.
-                Console.WriteLine("Du er nu i Hoved-Menuen");
-                int.TryParse(Console.ReadLine(), out int valg);
-                Console.WriteLine("\nIndtast 1 for at gå ind i Kunde-Menu\nIndtast 2 for at gå ind i Bil-Menu\nIndtast 3 for at gå ind i Værksteds-Menu");
-                switch (valg)
-                {
-                    case 1:
-                        Kunder();
-                        break;
-                    case 2:
-                        Biler();
-                        break;
-                    case 3:
-                        Vaerksted();
-                        break;
+            Console.Clear();
+            //Switch som sender en ud til de forskellige menuer ud fra valgte tal.
+            Console.WriteLine("Du er nu i Hoved-Menuen");
+            Console.WriteLine("\nIndtast 1 for at gå ind i Kunde-Menu\n" +
+                "Indtast 2 for at gå ind i Bil-Menu\n" +
+                "Indtast 3 for at gå ind i Værksteds-Menu");
 
-                    default:
-                        Console.WriteLine("\nDu har indtastet et ugyldigt tegn udefor valgte tal!");
-                        Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
-                        Console.ReadKey();
-                        Menu();
-                        break;
-                }
-                Console.Clear();
-                Console.ReadKey();
+            int.TryParse(Console.ReadLine(), out int valg);
+
+            switch (valg)
+            {
+                case 1:
+                    Kunder();
+                    break;
+
+                case 2:
+                    Biler();
+                    break;
+
+                case 3:
+                    Vaerksted();
+                    break;
+
+                default:
+                    Console.WriteLine("\nDu har indtastet et ugyldigt tegn udefor valgte tal!");
+                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
+                    Console.ReadKey();
+                    Menu();
+                    break;
             }
+            Console.Clear();
+            Console.ReadKey();
         }
 
         //Denne metode er lavet til håndtering af kunder
@@ -57,16 +61,21 @@ namespace Autoværksted
             Datalag lag = new Datalag();
             int kunder = 0;
             Console.WriteLine("Du har valgt Kunder");
-            Console.WriteLine("\nIndtast 1 for at oprette en Kunde\nIndtast 2 for at Updatere oplysninger på Kunde\nIndtast 3 for at slette en Kunde\nIndtast 4 for at vise oplysninger af Kunde\nIndtast 5 for vise alle Kunder");
+            Console.WriteLine("\nIndtast 1 for at oprette en Kunde\n" +
+                                "Indtast 2 for at Updatere oplysninger på Kunde\n" +
+                                "Indtast 3 for at slette en Kunde\n" +
+                                "Indtast 4 for at vise oplysninger af Kunde\n" +
+                                "Indtast 5 for vise alle Kunder");
+
             kunder = Convert.ToInt16(Console.ReadLine());
             Console.Clear();
             Console.WriteLine("Du har valgt Kunder");
+
             switch (kunder)
             {
                 case 1:
                     Console.WriteLine("\nHer opretter man en ny Kunde");
                     lag.CreateKunde(); //Bruger metoden Createkunde fra Klassen Datalag 
-                    Kunder();
                     break;
 
                 case 2:
@@ -95,9 +104,8 @@ namespace Autoværksted
                     Console.ReadKey();
                     Menu();
                     break;
-
-
             }
+
             Console.WriteLine("\nTryk på tast for at gå tilbage til Kunde-Menu");
             Console.ReadKey();
             Kunder();
@@ -111,10 +119,15 @@ namespace Autoværksted
             Datalag lag = new Datalag();
             int biler = 0;
             Console.WriteLine("Du har valgt Biler");
-            Console.WriteLine("\nIndtast 1 for at oprette en Bil\nIndtast 2 for at Updatere oplysninger på Bil\nIndtast 3 for at slette en Bil\nIndtast 4 for at vise oplysninger af bil\nIndtast 5 for vise alle Biler");
+            Console.WriteLine("\nIndtast 1 for at oprette en Bil\n" +
+                                "Indtast 2 for at Updatere oplysninger på Bil\n" +
+                                "Indtast 3 for at slette en Bil\nIndtast 4 for at vise oplysninger af bil\n" +
+                                "Indtast 5 for vise alle Biler");
+
             biler = Convert.ToInt16(Console.ReadLine());
             Console.Clear();
             Console.WriteLine("Du har valgt Biler");
+
             switch (biler)
             {
                 case 1:
@@ -149,6 +162,7 @@ namespace Autoværksted
                     Menu();
                     break;
             }
+
             Console.WriteLine("\nTryk på tast for at gå tilbage til Bil-Menu");
             Console.ReadKey();
             Biler();
@@ -161,20 +175,25 @@ namespace Autoværksted
 
             int vaerksted = 0;
             Console.WriteLine("Du har valgt Værkstedophold");
+
             switch (vaerksted)
             {
                 case 1:
                     Console.WriteLine();
                     break;
+
                 case 2:
                     Console.WriteLine();
                     break;
+
                 case 3:
                     Console.WriteLine();
                     break;
+
                 case 4:
                     Console.WriteLine();
                     break;
+
                 default:
                     Menu();
                     break;
