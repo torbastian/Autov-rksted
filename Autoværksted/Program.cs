@@ -65,7 +65,8 @@ namespace Autoværksted
                                 "Indtast 3 for at slette en Kunde\n" +
                                 "Indtast 4 for at vise oplysninger af en bestemt Kunde\n" +
                                 "Indtast 5 for vise alle Kunder\n" +
-                                "indtast 6 for at gå tilbage");
+                                "Indtast 6 for at se Kundeoversigt sorteret efter eget valg\n" +
+                                "Indtast 7 for at gå tilbage");
 
             int.TryParse(Console.ReadLine(), out int kunder);
 
@@ -100,6 +101,11 @@ namespace Autoværksted
                     break;
 
                 case 6:
+                    Console.WriteLine("\nHer vises Kundeoversigt på alle Kunder sorteret efter eget valg");
+                    lag.ShowKundeOrder();
+                    break;
+
+                case 7:
                     Menu();
                     break;
 
@@ -123,9 +129,10 @@ namespace Autoværksted
             Console.WriteLine("\nIndtast 1 for at oprette en Bil\n" +
                                 "Indtast 2 for at opdatere oplysninger på Bil\n" +
                                 "Indtast 3 for at slette en Bil\n" +
-                                "Indtast 4 for at vise oplysninger på en bestemt Bil\n" +
-                                "Indtast 5 for vise oplysninger på alle Biler\n" +
-                                "Indtast 6 for at gå tilbage til HovedMenu");
+                                "Indtast 4 for at se oplysninger på en bestemt Bil\n" +
+                                "Indtast 5 for at se oplysninger på alle Biler\n" +
+                                "Indtast 6 for at se Biloversigt sorteret efter eget valg\n" +
+                                "Indtast 7 for at gå tilbage til HovedMenu");
 
             int.TryParse(Console.ReadLine(), out int biler);
             Console.Clear();
@@ -159,7 +166,8 @@ namespace Autoværksted
                     break;
 
                 case 6:
-                    Menu();
+                    Console.WriteLine("\nHer vises alle Bilers oplysninger sorteret efter eget valg");
+                    lag.ShowBilOrder();
                     break;
 
                 default:
