@@ -143,7 +143,7 @@ namespace Autoværksted
                                 "Indtast 4 for at se oplysninger på en bestemt Bil\n" +
                                 "Indtast 5 for at se oplysninger på alle Biler\n" +
                                 "Indtast 6 for at se Biloversigt sorteret efter eget valg\n" +
-                                "Indtast 7 for at se hvilket Kunde der ejer valgte Bil" +
+                                "Indtast 7 for at se hvilket Kunde der ejer valgte Bil\n" +
                                 "Indtast 8 for at gå tilbage til HovedMenu");
 
             int.TryParse(Console.ReadLine(), out int biler);
@@ -210,12 +210,13 @@ namespace Autoværksted
             Console.WriteLine("Du har valgt Værkstedsophold");
             Console.WriteLine("\nIndtast 1 for at oprette et Værkstedsophold\n" +
                                 "Indtast 2 for at slette et Værkstedsophold\n" +
-                                "Indtast 3 for at vise oplysninger på et bestemt Værkstedsophold\n" +
-                                "Indtast 4 for vise oplysninger på alle Værkstedsophold\n" +
-                                "Indtast 5 for at få vist hvilket Biler der hører til en valgt Kunde\n" +
-                                "Indtast 6 for at se hvilket Kunde der ejer en valgt Bil\n" +
-                                "Indtast 7 for at se alle Kunder med deres Biler\n" +
-                                "Indtast 8 for at gå tilbage til HovedMenu");
+                                "Indtast 3 for at updatere et Værkstedsophold\n" +
+                                "Indtast 4 for at vise oplysninger på et bestemt Værkstedsophold\n" +
+                                "Indtast 5 for vise oplysninger på alle Værkstedsophold\n" +
+                                "Indtast 6 for at få vist hvilket Biler der hører til en valgt Kunde\n" +
+                                "Indtast 7 for at se hvilket Kunde der ejer en valgt Bil\n" +
+                                "Indtast 8 for at se alle Kunder med deres Biler\n" +
+                                "Indtast 9 for at gå tilbage til HovedMenu");
 
             int.TryParse(Console.ReadLine(), out int vaerksted);
 
@@ -235,31 +236,36 @@ namespace Autoværksted
                     break;
 
                 case 3:
+                    Console.WriteLine("\nHer updatere man en Bils Værkstedsophold");
+                    lag.UpdateAutoRecord();
+                    break;
+
+                case 4:
                     Console.WriteLine("\nHer kan man se et bestemt Værstedsophold");
                     lag.ShowAutoRecord(); //Bruger metoden ShowAutoRecord fra Klassen Datalag
                     break;
 
-                case 4:
+                case 5:
                     Console.WriteLine("\nHer kan man se alle Værkstedsophold");
                     lag.ShowAutoRecordAll(); //Bruger metoden ShowAutoRecordAll fra Klassen Datalag
                     break;
 
-                case 5:
+                case 6:
                     Console.WriteLine("\nHer kan man vælge en Kunde og se hvilket Biler den har");
                     lag.InnerJoinKundeId(); //Bruger metoden InnerJoinKundeId fra Klassen Datalag
                     break;
 
-                case 6:
+                case 7:
                     Console.WriteLine("\nHer vises hvilket Kunde der er ejer af den valgte Bil");
                     lag.InnerJoinRegNr(); //Bruger metoden InnerJoinRegNr fra Klassen Datalag
                     break;
 
-                case 7:
+                case 8:
                     Console.WriteLine("\nHer vises alle Kunder og hvilket Biler de ejer");
                     lag.InnerJoinAll(); //Bruger metoden InnerJoinAll fra Klassen Datalag
                     break;
 
-                case 8:
+                case 9:
                     Menu();
                     break;
 
