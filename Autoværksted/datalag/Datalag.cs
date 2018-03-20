@@ -8,7 +8,6 @@ namespace Autoværksted
 {
     class Datalag
     {
-
         /// <summary>
         /// Kunder
         /// </summary>
@@ -162,6 +161,7 @@ namespace Autoværksted
 
             //Opret kommando og send den til sql laget
             string sqlcmd = string.Format("select * from Kunder Order by {0} {1}", parameter, order);
+            Console.Clear();
             Console.WriteLine("Id, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
             SQL.Read(sqlcmd);
         }
@@ -494,6 +494,7 @@ namespace Autoværksted
 
             //Lav og kør kommando
             string sqlcmd = string.Format("select * from Biler Order by {0} {1}", parameter, order);
+            Console.Clear();
             Console.WriteLine("Reg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
             SQL.Read(sqlcmd);
         }

@@ -54,7 +54,7 @@ namespace Autoværksted
         }
 
         //Denne metode er lavet til håndtering af kunder
-        static public void Kunder()
+        static void Kunder()
         {
             Console.Clear();
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
@@ -126,7 +126,7 @@ namespace Autoværksted
         }
 
 
-        static public void Biler()
+        static void Biler()
         {
             Console.Clear();
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
@@ -196,7 +196,7 @@ namespace Autoværksted
             Biler();
         }
 
-        static public void Vaerksted()
+        static void Vaerksted()
         {
             Console.Clear();
             //Gør at vi kan hente data og bruge metoderne i Klassen Datalag
