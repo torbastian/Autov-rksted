@@ -28,7 +28,12 @@ oprettelsesdato date not null
 
 create table Vaerkstedsophold (
 id int identity(1,1) Primary key,
-dato date not null,
+hentning_dato date,
+aflevring_dato date not null,
 kunde_id int foreign key references Kunder(id),
-fk_reg_nr nvarchar(8) foreign key references Biler(reg_nr)
+fk_reg_nr nvarchar(8) foreign key references Biler(reg_nr),
+diagnose nvarchar(500),
+kunde_kommentar nvarchar(500),
+skade nvarchar(500)
 )
+
