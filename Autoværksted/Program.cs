@@ -43,13 +43,12 @@ namespace Autoværksted
                     break;
 
                 default:
-                    Console.WriteLine("\nDu har indtastet et ugyldigt tegn udefor valgte tal!");
-                    Console.WriteLine("Tryk på tast for at gå tilbage");
+                    Console.WriteLine("\nDu har indtastet et ugyldigt tegn udenfor valgte tal!");
                     break;
             }
-            
+
+            Console.WriteLine("Tryk på tast for at gå tilbage");
             Console.ReadKey();
-            Console.Clear();
             Menu();
         }
 
@@ -63,12 +62,12 @@ namespace Autoværksted
             Console.WriteLine("\nIndtast 1 for at oprette en Kunde\n" +
                                 "Indtast 2 for at opdatere oplysninger på Kunde\n" +
                                 "Indtast 3 for at slette en Kunde\n" +
-                                "Indtast 4 for at vise oplysninger af en bestemt Kunde\n" +
+                                "Indtast 4 for at vise oplysninger på en bestemt Kunde\n" +
                                 "Indtast 5 for vise alle Kunder\n" +
                                 "Indtast 6 for at se Kundeoversigt sorteret efter eget valg\n" +
-                                "Indtast 7 for at få vist hvilket Biler hører til den valgte Kunde\n" +
+                                "Indtast 7 for at få vist hvilket Biler der høre til den valgte Kunde\n" +
                                 "Indtast 8 for at se alle Kunder med deres Biler\n" +
-                                "Indtast 9 for at gå tilbage");
+                                "Indtast 9 for at gå tilbage til HovedMenu");
 
             int.TryParse(Console.ReadLine(), out int kunder);
 
@@ -83,17 +82,17 @@ namespace Autoværksted
                     break;
 
                 case 2:
-                    Console.WriteLine("\nHer kan du skifte dine kunde oplysninger");
+                    Console.WriteLine("\nHer kan man skifte en Kundes oplysninger");
                     lag.UpdateKunde(); //Bruger metoden UpdateKunde fra Klassen Datalag 
                     break;
 
                 case 3:
-                    Console.WriteLine("\nHer kan man slette en kunde");
+                    Console.WriteLine("\nHer kan man slette en Kunde");
                     lag.DeleteKunde(); //Bruger metoden DeleteKunde fra Klassen Datalag
                     break;
 
                 case 4:
-                    Console.WriteLine("\nHer vises Kundeoversigt på individuel Kunde");
+                    Console.WriteLine("\nHer vises Kundeoversigt på en individuel Kunde");
                     lag.ShowKunde(); //Bruger metoden ShowKunde fra Klassen Datalag
                     break;
 
@@ -139,7 +138,7 @@ namespace Autoværksted
             Datalag lag = new Datalag();
             Console.WriteLine("Du har valgt Biler");
             Console.WriteLine("\nIndtast 1 for at oprette en Bil\n" +
-                                "Indtast 2 for at opdatere oplysninger på Bil\n" +
+                                "Indtast 2 for at opdatere oplysninger på en Bil\n" +
                                 "Indtast 3 for at slette en Bil\n" +
                                 "Indtast 4 for at se oplysninger på en bestemt Bil\n" +
                                 "Indtast 5 for at se oplysninger på alle Biler\n" +
@@ -154,12 +153,12 @@ namespace Autoværksted
             switch (biler)
             {
                 case 1:
-                    Console.WriteLine("\nHer opretter du din bil");
+                    Console.WriteLine("\nHer opretter du en Bil");
                     lag.CreateBil(); //Bruger metoden CreateBil fra Klassen Datalag
                     break;
 
                 case 2:
-                    Console.WriteLine("\nHer opdatere du din Bils oplysninger");
+                    Console.WriteLine("\nHer opdatere du en Bils oplysninger");
                     lag.UpdateBil(); //Bruger metoden UpdateBil fra Klassen Datalag
                     break;
 
@@ -169,7 +168,7 @@ namespace Autoværksted
                     break;
 
                 case 4:
-                    Console.WriteLine("\nHer kan du se oplysninger på valgte Bil");
+                    Console.WriteLine("\nHer kan du se oplysninger på en valgt Bil");
                     lag.ShowBil(); //Bruger metoden ShowBil fra Klassen Datalag
                     break;
 
@@ -213,8 +212,8 @@ namespace Autoværksted
                                 "Indtast 2 for at slette et Værkstedsophold\n" +
                                 "Indtast 3 for at vise oplysninger på et bestemt Værkstedsophold\n" +
                                 "Indtast 4 for vise oplysninger på alle Værkstedsophold\n" +
-                                "Indtast 5 for at få vist hvilket Biler hører til valgt Kunde\n" +
-                                "Indtast 6 for at se hvilket Kunde der ejer valgte Bil\n" +
+                                "Indtast 5 for at få vist hvilket Biler der hører til en valgt Kunde\n" +
+                                "Indtast 6 for at se hvilket Kunde der ejer en valgt Bil\n" +
                                 "Indtast 7 for at se alle Kunder med deres Biler\n" +
                                 "Indtast 8 for at gå tilbage til HovedMenu");
 
@@ -256,7 +255,7 @@ namespace Autoværksted
                     break;
 
                 case 7:
-                    Console.WriteLine("\nHer vise alle Kunder og hvilket Biler de ejer");
+                    Console.WriteLine("\nHer vises alle Kunder og hvilket Biler de ejer");
                     lag.InnerJoinAll(); //Bruger metoden InnerJoinAll fra Klassen Datalag
                     break;
 
@@ -266,7 +265,6 @@ namespace Autoværksted
 
                 default:
                     Console.WriteLine("\nDu har indtastet tegn uden for valgte tal!");
-                    Console.ReadKey();
                     break;
             }
 
