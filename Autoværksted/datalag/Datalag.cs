@@ -701,7 +701,7 @@ namespace Autoværksted
             Console.Write("Indtast besøg id: ");
             string bId = Console.ReadLine();
             string sqlcmd = string.Format("select Vaerkstedsophold.id, Kunder.id, Kunder.fornavn, Kunder.efternavn, Biler.*" +
-                                          "From((Vaerkstedsophold" +
+                                          "From((Vaerkstedsophold " +
                                           "inner join Kunder on Vaerkstedsophold.id = kunder.id)" +
                                           "inner join Biler on Vaerkstedsophold.fk_reg_nr = Biler.reg_nr); ");
 
