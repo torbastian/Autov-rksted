@@ -43,7 +43,7 @@ namespace Autoværksted
         }
 
         public void CreateKunde(Kunde kunde)
-        { 
+        {
             //Hvis variabler ikke følger regler, skriv fejl
             if (kunde.IsFilled())
             {
@@ -696,6 +696,19 @@ namespace Autoværksted
             SQL.Read(sqlcmd);
         }
 
+        public void InnerJoinAutoRecord()
+        {
+            Console.Write("Indtast besøg id: ");
+            string bId = Console.ReadLine();
+            string sqlcmd = string.Format("select Vaerkstedsophold.id, Kunder.id, Kunder.fornavn, Kunder.efternavn, Biler.*" +
+                                          "From((Vaerkstedsophold" +
+                                          "inner join Kunder on Vaerkstedsophold.id = kunder.id)" +
+                                          "inner join Biler on Vaerkstedsophold.fk_reg_nr = Biler.reg_nr); ");
+
+            Console.WriteLine("Besøg Id, Kunde Id, Fornavn, Efternavn, Reg nr, Kunde Id, Mærke, Årgang, Km, Brændstof, Kml, Oprettelses Dato");
+            SQL.Read(sqlcmd);
+        }
+
         /// <summary>
         /// AutoVærksted
         /// </summary>
@@ -707,8 +720,23 @@ namespace Autoværksted
             Console.Write("\nIndtast Reg nr: ");
             string regnr = Console.ReadLine();
 
-            Console.Write("\nIndtast Dato YYYY-MM-DD (Blank hvis nu): ");
+            Console.Write("\nIndtast afleverings Dato YYYY-MM-DD (Blank hvis nu): ");
             string rl = Console.ReadLine();
+
+            Console.Write("\nIndtast afhentnings Dato YYYY-MM-DD (Blank hvis ikke hentet): ");
+            string retrieved = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(retrieved))
+                retrieved = "GETDATE()";
+
+            Console.Write("\nIndtast Kunde Kommentar: ");
+            string comment = Console.ReadLine();
+
+            Console.Write("\nIndtast Diagnose: ");
+            string diagnose = Console.ReadLine();
+
+            Console.Write("\nIndtast Skade: ");
+            string damage = Console.ReadLine();
 
             string date = string.Empty;
 
@@ -717,7 +745,7 @@ namespace Autoværksted
             else
                 date = string.Format("'{0}'", rl);
 
-            string sqlcmd = string.Format("insert into vaerkstedsophold (dato, kunde_id, fk_reg_nr) values ({0}, {1}, '{2}')", date, id, regnr);
+            string sqlcmd = string.Format("insert into vaerkstedsophold (hentning_dato, aflevring_dato, kunde_id, fk_reg_nr, diagnose, kunde_kommentar, skade) values ({0}, {1}, {2}, '{3}', '{4}', '{5}', '{6}')", date, retrieved, id, regnr, diagnose, comment, damage);
 
             SQL.Create(sqlcmd);
         }
@@ -738,6 +766,44 @@ namespace Autoværksted
             string sqlcmd = string.Format("select * from vaerkstedsophold");
             Console.WriteLine("Id, Fornavn, Efternavn, Reg Nr, Mærke, Model");
             SQL.Read(sqlcmd);
+        }
+
+        public void UpdateAutoRecord()
+        {
+            Console.Write("Indtast Besøg id: ");
+            string id = Console.ReadLine();
+
+            Console.Write("Hvad vil du ændre? (vælg 1)\n" +
+                          "Afhentning dato (adato)\n" +
+                          "Diagnose\n" +
+                          "Skade");
+
+            string rl = Console.ReadLine().ToLower();
+            string parameter = string.Empty;
+            string changeTo = string.Empty;
+            switch (rl)
+            {
+                case "adato":
+                    parameter = "hentning_dato";
+                    break;
+
+                case "diagnose":
+                    parameter = "diagnose";
+                    break;
+
+                case "skade":
+                    parameter = "skade";
+                    break;
+
+                default:
+                    return;
+            }
+
+            Console.WriteLine("Hvad skal {0} ændres til?", parameter);
+            changeTo = Console.ReadLine();
+
+            string sqlcmd = string.Format("update Vaerkstedsophold set {0} = {1} where id = {2}", parameter, changeTo, id);
+            SQL.Update(sqlcmd);
         }
 
         public void DeleteAutoRecord()
