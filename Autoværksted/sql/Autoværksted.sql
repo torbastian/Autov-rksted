@@ -1,5 +1,9 @@
+use master
+go
 create database AutoVaerksted
+go
 use AutoVaerksted
+go
 
 create table Kunder (
 id int identity(1,1) Primary key,
@@ -15,7 +19,7 @@ reg_nr nvarchar(8) primary key,
 kunde_id int foreign key references Kunder(id),
 maerke nvarchar(50) not null,
 model nvarchar(50) not null,
-aargang date not null check(aargang > 1900),
+aargang int not null check(aargang > 1900),
 km int check(km >= 0),
 braendstof nvarchar(30) not null,
 km_l float not null,

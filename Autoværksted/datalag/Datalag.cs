@@ -33,7 +33,8 @@ namespace Autoværksted
                 string sqlcmd = string.Format("insert into Kunder (fornavn, efternavn, adresse, tlf, oprettelsesdato) values ('{0}', '{1}', '{2}', '{3}', GETDATE())",
                                               kunde.Fornavn, kunde.Efternavn, kunde.Adresse, kunde.Tlf);
                 //Kald på SQL.Create til at oprette kunden i databasen
-                SQL.Create(sqlcmd);
+                if (AreYouSure())
+                    SQL.Create(sqlcmd);
             }
             else
                 Console.WriteLine("Fejl! - I input");
@@ -43,12 +44,12 @@ namespace Autoværksted
         {   //få fat i Id
             Console.Write("Indtast Kunde Id: ");
             int.TryParse(Console.ReadLine(), out int id);
-            
+
             //Hvis id > 0, vis kunde ud fra id
             if (id > 0)
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
-
+                Console.WriteLine("Id, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
                 //Kald på sql laget for at læse
                 SQL.Read(sqlcmd);
             }
@@ -61,7 +62,7 @@ namespace Autoværksted
             if (id > 0)
             {
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
-
+                Console.WriteLine("Id, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
                 SQL.Read(sqlcmd);
             }
             else
@@ -81,7 +82,8 @@ namespace Autoværksted
                               "Fornavn\n" +
                               "ID\n" +
                               "Adresse\n" +
-                              "Oprettelses Dato (Dato)");
+                              "Oprettelses Dato (Dato)\n" +
+                              "Back (b) For at gå tilbage");
 
             string parameter = string.Empty;
             string read = Console.ReadLine().ToLower().Trim();
@@ -141,6 +143,7 @@ namespace Autoværksted
 
             //Opret kommando og send den til sql laget
             string sqlcmd = string.Format("select * from Kunder Order by {0} {1}", parameter, order);
+            Console.WriteLine("Id, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
             SQL.Read(sqlcmd);
         }
 
@@ -194,7 +197,8 @@ namespace Autoværksted
                                   "Fornavn\n" +
                                   "Efternavn\n" +
                                   "Adresse\n" +
-                                  "Telefon\n");
+                                  "Telefon\n" +
+                                  "Back (b) For at gå tilbage");
 
                 //Få fat i valg
                 string[] valgt = Console.ReadLine().Split();
@@ -311,12 +315,12 @@ namespace Autoværksted
             bil.KundeID = kid;
 
             //Hvis data er fyldt ud, lav en ny bil i databasen
-            if(bil.IsFilled())
+            if (bil.IsFilled())
             {
                 string sqlcmd = string.Format("insert into Biler values ('{0}', {1}, '{2}', '{3}', {4}, {5}, '{6}', {7}, GETDATE())"
                                               , bil.RegNR, bil.KundeID, bil.Maerke, bil.Model, bil.Aargang, bil.Km, bil.Braendstof, bil.Kml);
-
-                SQL.Create(sqlcmd);
+                if (AreYouSure())
+                    SQL.Create(sqlcmd);
             }
             else
                 Console.WriteLine("Fejl! - I input");
@@ -330,7 +334,7 @@ namespace Autoværksted
             if (!string.IsNullOrEmpty(regnr))
             {
                 string sqlcmd = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
-
+                Console.WriteLine("Reg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
                 SQL.Read(sqlcmd);
             }
             else
@@ -342,6 +346,7 @@ namespace Autoværksted
             if (!string.IsNullOrEmpty(regnr))
             {
                 string sqlcmd = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
+                Console.WriteLine("Reg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
                 SQL.Read(sqlcmd);
             }
             else
@@ -357,15 +362,16 @@ namespace Autoværksted
         public void ShowBilOrder()
         {   //Vis biler efter en bruger bestemt order
             Console.WriteLine("I hvilken ordre?\n" +
-                              "regnr, " +
-                              "kunde id (id), " +
-                              "mærke (maerke), " +
-                              "model, " +
-                              "Årgang (aargang), " +
-                              "Km, " +
-                              "Brændstof (braendstof), " +
-                              "Kml, " +
-                              "Oprettelses Dato (Dato)");
+                              "regnr\n" +
+                              "kunde id (id)\n" +
+                              "mærke (maerke)\n" +
+                              "model\n" +
+                              "Årgang (aargang)\n" +
+                              "Km\n" +
+                              "Brændstof (braendstof)\n" +
+                              "Kml\n" +
+                              "Oprettelses Dato (Dato)\n" +
+                              "Back (b) For at gå tilbage");
 
             string parameter = string.Empty;
             string read = Console.ReadLine().ToLower().Trim();
@@ -453,6 +459,7 @@ namespace Autoværksted
 
             //Lav og kør kommando
             string sqlcmd = string.Format("select * from Biler Order by {0} {1}", parameter, order);
+            Console.WriteLine("Reg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
             SQL.Read(sqlcmd);
         }
 
@@ -472,7 +479,7 @@ namespace Autoværksted
         public void DeleteBil()
         {   //Slet bil efter regnr input
             ShowBilAll();
-        
+
             Console.Write("\nIndtast reg nr: ");
             string regnr = Console.ReadLine();
 
@@ -490,7 +497,7 @@ namespace Autoværksted
         public void UpdateBil()
         {
             ShowBilAll();
-            
+
             //Opdater bil efter bruger input
             Console.Write("\nIndtast reg nr: ");
             string regnr = Console.ReadLine();
@@ -570,7 +577,7 @@ namespace Autoværksted
                 }
 
                 List<string> ToUpdate = new List<string>();
-                
+
                 //Dette finder ud af hvad der skal ændres
                 if (!string.IsNullOrEmpty(bil.RegNR))
                     ToUpdate.Add(string.Format("reg_nr = '{0}'", bil.RegNR));
