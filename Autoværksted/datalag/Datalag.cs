@@ -752,7 +752,7 @@ namespace Autoværksted
         /// <summary>
         /// Diverse
         /// </summary>
-        public bool AreYouSure()
+        private bool AreYouSure()
         {   //Er du sikker metode, spørg om brugeren er sikker på sit input
             Console.WriteLine("Er du sikker? Y/N");
             if (Console.ReadLine().ToLower() == "y")
