@@ -18,6 +18,21 @@ namespace Autoværksted
         private float kml;
         private int kundeID;
 
+        //Constructor(s)
+        public Bil() { }
+
+        public Bil(string reg, string mrk, string mod, string braend, int aar, int k, float kl, int kId)
+        {
+            regNR = reg;
+            maerke = mrk;
+            model = mod;
+            braendstof = braend;
+            aargang = aar;
+            km = k;
+            kml = kl;
+            kundeID = kId;
+        }
+
         //Properties
         //henter field regNR
         public string RegNR

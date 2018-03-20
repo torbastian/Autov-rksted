@@ -8,7 +8,10 @@ namespace Autoværksted
 {
     class Datalag
     {
-        //Kunder <-<-<-<-<-<-<-<-<-
+
+        /// <summary>
+        /// Kunder
+        /// </summary>
         public void CreateKunde()
         {   //får fat i kunde info
             Kunde kunde = new Kunde();
@@ -26,6 +29,22 @@ namespace Autoværksted
             Console.Write("\nTlf nr: ");
             kunde.Tlf = Console.ReadLine().Trim();
 
+            //Hvis variabler ikke følger regler, skriv fejl
+            if (kunde.IsFilled())
+            {
+                //Lav en ny SQL kommando string ud fra variabler
+                string sqlcmd = string.Format("insert into Kunder (fornavn, efternavn, adresse, tlf, oprettelsesdato) values ('{0}', '{1}', '{2}', '{3}', GETDATE())",
+                                              kunde.Fornavn, kunde.Efternavn, kunde.Adresse, kunde.Tlf);
+                //Kald på SQL.Create til at oprette kunden i databasen
+                if (AreYouSure())
+                    SQL.Create(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - I input");
+        }
+
+        public void CreateKunde(Kunde kunde)
+        { 
             //Hvis variabler ikke følger regler, skriv fejl
             if (kunde.IsFilled())
             {
@@ -279,7 +298,9 @@ namespace Autoværksted
             }
         }
 
-        //Biler <-<-<-<-<-<-<-<-<-
+        /// <summary>
+        /// Biler
+        /// </summary>
         public void CreateBil()
         {   //Opret ny bil
             Bil bil = new Bil();
@@ -314,6 +335,20 @@ namespace Autoværksted
             int.TryParse(Console.ReadLine().Trim(), out int kid);
             bil.KundeID = kid;
 
+            //Hvis data er fyldt ud, lav en ny bil i databasen
+            if (bil.IsFilled())
+            {
+                string sqlcmd = string.Format("insert into Biler values ('{0}', {1}, '{2}', '{3}', {4}, {5}, '{6}', {7}, GETDATE())"
+                                              , bil.RegNR, bil.KundeID, bil.Maerke, bil.Model, bil.Aargang, bil.Km, bil.Braendstof, bil.Kml);
+                if (AreYouSure())
+                    SQL.Create(sqlcmd);
+            }
+            else
+                Console.WriteLine("Fejl! - I input");
+        }
+
+        public void CreateBil(Bil bil)
+        {   //Opret ny bil
             //Hvis data er fyldt ud, lav en ny bil i databasen
             if (bil.IsFilled())
             {
@@ -619,7 +654,9 @@ namespace Autoværksted
             }
         }
 
-        //InnerJoin <-<-<-<-<-<-<-<-<-<-<-
+        /// <summary>
+        /// InnerJoin
+        /// </summary>
         public void InnerJoinAll()
         {   //Få fat i alle Kunder og biller som er linket
             string sqlcmd = "select id, fornavn, efternavn, reg_nr, maerke, model" +
@@ -653,7 +690,9 @@ namespace Autoværksted
             SQL.Read(sqlcmd);
         }
 
-        //Autoværksted <-<-<-<-<-<-<-<-<-<-
+        /// <summary>
+        /// AutoVærksted
+        /// </summary>
         public void NewAutoRecord()
         {   //Opret ny værksteds ophold
             Console.Write("Opret nyt værksteds besøg\nIndtast Kunde id: ");
@@ -702,8 +741,9 @@ namespace Autoværksted
             SQL.Delete(sqlcmd);
         }
 
-
-        //diverse
+        /// <summary>
+        /// Diverse
+        /// </summary>
         public bool AreYouSure()
         {   //Er du sikker metode, spørg om brugeren er sikker på sit input
             Console.WriteLine("Er du sikker? Y/N");

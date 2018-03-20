@@ -14,6 +14,16 @@ namespace Autoværksted
         private string adresse;
         private string tlf;
 
+        //Constructors(s)
+        public Kunde() { }
+
+        public Kunde(string fnavn, string enavn, string adr, string t)
+        {
+            fornavn = fnavn;
+            efternavn = enavn;
+            adresse = adr;
+            tlf = t;
+        }
         //Properties
         //henter field fornavn
         public string Fornavn {
