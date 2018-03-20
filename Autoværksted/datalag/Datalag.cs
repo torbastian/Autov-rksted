@@ -287,7 +287,7 @@ namespace Autoværksted
 
             //Få bruger input
             Console.Write("Reg nr: ");
-            bil.RegNR = Console.ReadLine().Trim();
+            bil.RegNR = Console.ReadLine().Trim().ToUpper();
 
             Console.Write("\nMaerke: ");
             bil.Maerke = Console.ReadLine().Trim();
@@ -617,6 +617,40 @@ namespace Autoværksted
                 sqlcmd += string.Format(" where reg_nr = '{0}'", regnr);
                 SQL.Update(sqlcmd);
             }
+        }
+
+        //InnerJoin <-<-<-<-<-<-<-<-<-<-<-
+        public void InnerJoinAll()
+        {   //Få fat i alle Kunder og biller som er linket
+            string sqlcmd = "select id, fornavn, efternavn, reg_nr, maerke, model" +
+                            " From Kunder" +
+                            " Inner join biler on Kunder.id = biler.kunde_id";
+
+            SQL.Read(sqlcmd);
+        }
+
+        public void InnerJoinKundeId()
+        {   //Få fat i alle biler en bestemt kunde har
+            Console.Write("Indtast Kunde id: ");
+            string id = Console.ReadLine();
+            string sqlcmd = string.Format("select id, fornavn, efternavn, reg_nr, maerke, model" +
+                            " From Kunder" +
+                            " Inner join biler on Kunder.id = biler.kunde_id" +
+                            " Where id = {0}", id);
+
+            SQL.Read(sqlcmd);
+        }
+
+        public void InnerJoinRegNr()
+        {   //Få fat i kunden en bestemt bil har
+            Console.Write("Indtast Reg nr: ");
+            string regnr = Console.ReadLine().ToUpper();
+            string sqlcmd = string.Format("select id, fornavn, efternavn, reg_nr, maerke, model" +
+                            " From Kunder" +
+                            " Inner join biler on Kunder.id = biler.kunde_id" +
+                            " Where reg_nr = '{0}'", regnr);
+
+            SQL.Read(sqlcmd);
         }
 
         //Autoværksted <-<-<-<-<-<-<-<-<-<-
