@@ -44,13 +44,13 @@ namespace Autoværksted
 
                 default:
                     Console.WriteLine("\nDu har indtastet et ugyldigt tegn udefor valgte tal!");
-                    Console.WriteLine("Tryk på tast for at gå tilbage til HovedMenu");
-                    Console.ReadKey();
-                    Menu();
+                    Console.WriteLine("Tryk på tast for at gå tilbage");
                     break;
             }
-            Console.Clear();
+            
             Console.ReadKey();
+            Console.Clear();
+            Menu();
         }
 
         //Denne metode er lavet til håndtering af kunder
@@ -103,12 +103,12 @@ namespace Autoværksted
 
                 case 6:
                     Console.WriteLine("\nHer vises Kundeoversigt på alle Kunder sorteret efter eget valg");
-                    lag.ShowKundeOrder();
+                    lag.ShowKundeOrder(); //Bruger metoden ShowKundeOrder fra Klassen Datalag
                     break;
 
                 case 7:
                     Console.WriteLine("\nHer kan man vælge en Kunde og se hvilket Biler den har");
-                    lag.InnerJoinKundeId();
+                    lag.InnerJoinKundeId(); //Bruger metoden InnerJoinKundeId fra Klassen Datalag
                     break;
 
                 case 8:
@@ -174,12 +174,12 @@ namespace Autoværksted
 
                 case 6:
                     Console.WriteLine("\nHer vises alle Bilers oplysninger sorteret efter eget valg");
-                    lag.ShowBilOrder();
+                    lag.ShowBilOrder(); //Bruger metoden ShowBilOrder fra Klassen Datalag
                     break;
 
                 case 7:
                     Console.WriteLine("\nHer vises hvilket Kunde der er ejer af den valgte Bil");
-                    lag.InnerJoinRegNr();
+                    lag.InnerJoinRegNr(); //Bruger metoden InnerJoinRegNr fra Klassen Datalag
                     break;
 
                 case 8:
@@ -241,17 +241,17 @@ namespace Autoværksted
 
                 case 5:
                     Console.WriteLine("\nHer kan man vælge en Kunde og se hvilket Biler den har");
-                    lag.InnerJoinKundeId();
+                    lag.InnerJoinKundeId(); //Bruger metoden InnerJoinKundeId fra Klassen Datalag
                     break;
 
                 case 6:
                     Console.WriteLine("\nHer vises hvilket Kunde der er ejer af den valgte Bil");
-                    lag.InnerJoinRegNr();
+                    lag.InnerJoinRegNr(); //Bruger metoden InnerJoinRegNr fra Klassen Datalag
                     break;
 
                 case 7:
                     Console.WriteLine("\nHer vise alle Kunder og hvilket Biler de ejer");
-                    lag.InnerJoinAll();
+                    lag.InnerJoinAll(); //Bruger metoden InnerJoinAll fra Klassen Datalag
                     break;
 
                 case 8:
