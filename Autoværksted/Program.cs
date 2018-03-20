@@ -213,7 +213,7 @@ namespace Autoværksted
                                 "Indtast 3 for at opdatere et Værkstedsophold\n" +
                                 "Indtast 4 for at vise oplysninger på et bestemt Værkstedsophold\n" +
                                 "Indtast 5 for at vise oplysninger på alle Værkstedsophold\n" +
-                                "Indtast 6 for at vise hvilket Biler der hører til det valgte besøgs Id" +
+                                "Indtast 6 for at vise hvilket Bil der hører til det valgte Besøgs Id\n" +
                                 "Indtast 7 for at gå tilbage til HovedMenu");
 
             int.TryParse(Console.ReadLine(), out int vaerksted);
@@ -249,6 +249,7 @@ namespace Autoværksted
                     break;
 
                 case 6:
+                    Console.WriteLine("\nHer kan man se en Bil ud fra valgt Opholds-ID");
                     lag.InnerJoinAutoRecord();
                     break;
 
