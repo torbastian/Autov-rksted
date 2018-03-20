@@ -67,7 +67,8 @@ namespace Autoværksted
                                 "Indtast 5 for vise alle Kunder\n" +
                                 "Indtast 6 for at se Kundeoversigt sorteret efter eget valg\n" +
                                 "Indtast 7 for at få vist hvilket Biler hører til den valgte Kunde\n" +
-                                "Indtast 8 for at gå tilbage");
+                                "Indtast 8 for at se alle Kunder med deres Biler\n" +
+                                "Indtast 9 for at gå tilbage");
 
             int.TryParse(Console.ReadLine(), out int kunder);
 
@@ -112,6 +113,11 @@ namespace Autoværksted
                     break;
 
                 case 8:
+                    Console.WriteLine("\nHer vise alle Kunder og hvilket Biler de ejer");
+                    lag.InnerJoinAll(); //Bruger metoden InnerJoinAll fra Klassen Datalag
+                    break;
+
+                case 9:
                     Menu();
                     break;
 

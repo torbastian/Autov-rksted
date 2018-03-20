@@ -90,6 +90,7 @@ namespace Autoværksted
         public void ShowKundeAll()
         {   //Vis alle kunder
             string sqlcmd = "select * from Kunder";
+            Console.WriteLine("Id, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
             SQL.Read(sqlcmd);
         }
 
@@ -391,6 +392,7 @@ namespace Autoværksted
         public void ShowBilAll()
         {   //Vis alle biler
             string sqlcmd = "select * from Biler";
+            Console.WriteLine("Reg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
             SQL.Read(sqlcmd);
         }
 
@@ -664,6 +666,7 @@ namespace Autoværksted
                             " From Kunder" +
                             " Inner join biler on Kunder.id = biler.kunde_id";
 
+            Console.WriteLine("Id, Fornavn, Efternavn, Reg nr, Mærke, Model");
             SQL.Read(sqlcmd);
         }
 
@@ -676,6 +679,7 @@ namespace Autoværksted
                             " Inner join biler on Kunder.id = biler.kunde_id" +
                             " Where id = {0}", id);
 
+            Console.WriteLine("Id, Fornavn, Efternavn, Reg Nr, Mærke, Model");
             SQL.Read(sqlcmd);
         }
 
@@ -688,6 +692,7 @@ namespace Autoværksted
                             " Inner join biler on Kunder.id = biler.kunde_id" +
                             " Where reg_nr = '{0}'", regnr);
 
+            Console.WriteLine("Id, Fornavn, Efternavn, Reg Nr, Mærke, Model");
             SQL.Read(sqlcmd);
         }
 
@@ -724,12 +729,14 @@ namespace Autoværksted
 
             string sqlcmd = string.Format("select * from vaerkstedsophold where id= {0}", id);
 
+            Console.WriteLine("Id, Fornavn, Efternavn, Reg Nr, Mærke, Model");
             SQL.Read(sqlcmd);
         }
 
         public void ShowAutoRecordAll()
         {   //Vis alle værksteds ophold
             string sqlcmd = string.Format("select * from vaerkstedsophold");
+            Console.WriteLine("Id, Fornavn, Efternavn, Reg Nr, Mærke, Model");
             SQL.Read(sqlcmd);
         }
 
