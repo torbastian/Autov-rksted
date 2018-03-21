@@ -236,9 +236,11 @@ namespace Autoværksted
                 bool accept = false;
                 List<string> choosen = new List<string>();
 
+                string valgt = string.Empty;
+
                 while (!accept)
                 {
-                    switch (menu.MenuSelector(Update, "\nHvad vil du ændre?\n"))
+                    switch (menu.MenuSelector(Update, valgt + "\nHvad vil du ændre? "))
                     {
                         case 0:
                             if (!choosen.Contains("Fornavn"))
@@ -279,12 +281,14 @@ namespace Autoværksted
                             break;
                     }
 
-                    Console.Write("Valgt: ");
+                    valgt = ("Valgt: ");
 
                     foreach (string s in choosen)
                     {
-                        Console.Write(s + ", ");
+                        valgt += (s + ", ");
                     }
+
+                    valgt += "\n";
                 }
 
                 Kunde kunde = new Kunde();
@@ -613,10 +617,11 @@ namespace Autoværksted
 
                 bool accept = false;
                 List<string> choosen = new List<string>();
+                string valgt = string.Empty;
 
                 while (!accept)
                 {
-                    switch (menu.MenuSelector(Update, "Hvad vil du ændre?\n"))
+                    switch (menu.MenuSelector(Update,  valgt + "\nHvad vil du ændre?\n"))
                     {
                         case 0:
                             if (!choosen.Contains("Reg_nr"))
@@ -685,12 +690,14 @@ namespace Autoværksted
                             break;
                     }
 
-                    Console.Write("Valgt: ");
+                    valgt = ("Valgt: ");
 
                     foreach (string s in choosen)
                     {
-                        Console.Write(s + ", ");
+                        valgt += (s + ", ");
                     }
+
+                    valgt += "\n";
                 }
 
                 Bil bil = new Bil();
