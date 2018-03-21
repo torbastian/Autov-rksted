@@ -9,6 +9,7 @@ namespace Autoværksted
 {
     class Datalag
     {
+        public Menu menu = new Menu();
         /// <summary>
         /// Kunder
         /// </summary>
@@ -98,77 +99,79 @@ namespace Autoværksted
         public void ShowKundeOrder()
         {   //Vis kunder i valgt rækkefølge
             Console.Clear();
-            Console.WriteLine("I hvilken ordre?\n" +
-                              "Efternavn\n" +
-                              "Fornavn\n" +
-                              "ID\n" +
-                              "Adresse\n" +
-                              "Oprettelses Dato (Dato)\n" +
-                              "Back (b) For at gå tilbage");
+            MenuItem[] Order = new MenuItem[]
+            {
+                new MenuItem("Efternavn"),
+                new MenuItem("Fornavn"),
+                new MenuItem("ID"),
+                new MenuItem("Adresse"),
+                new MenuItem("Oprettelses Dato"),
+                new MenuItem("Tilbage")
+            };
 
             string parameter = string.Empty;
-            string read = Console.ReadLine().ToLower().Trim();
 
             //Find et valid input ud fra brugerns input
-            switch (read)
+            switch (menu.MenuSelector(Order, "Sorteret efter hvilket"))
             {
-                case "efternavn":
-                    parameter = read;
+                case 0:
+                    parameter = "efternavn";
                     break;
 
-                case "fornavn":
-                    parameter = read;
+                case 1:
+                    parameter = "fornavn";
                     break;
 
-                case "id":
-                    parameter = read;
+                case 2:
+                    parameter = "id";
                     break;
 
-                case "adresse":
-                    parameter = read;
+                case 3:
+                    parameter = "adresse";
                     break;
 
-                case "dato":
+                case 4:
                     parameter = "oprettelsesdato";
                     break;
 
-                case "oprettelsesdato":
-                    parameter = read;
-                    break;
-
-                case "b":
-                    return;
-
-                case "back":
+                case 5:
                     return;
 
                 default:
                     Console.WriteLine("Ukendt input");
-                    Thread.Sleep(2500);
                     ShowKundeOrder();
                     break;
             }
 
-            //ha order som asc som default
-            string order = "asc";
+            MenuItem[] AscDesc = new MenuItem[]
+            {
+                new MenuItem("Ascending"),
+                new MenuItem("Descending")
+            };
 
-            read = string.Empty;
+            string order = string.Empty;
 
-            Console.WriteLine("Ascending (asc) eller Descending (desc)");
+            switch (menu.MenuSelector(AscDesc, "I hvilken rækkefølge"))
+            {
+                case 0:
+                    order = "asc";
+                    break;
 
-            read = Console.ReadLine().ToLower();
+                case 1:
+                    order = "desc";
+                    break;
 
-            if (read == "asc" || read == "ascending")
-                order = "asc";
-            else if (read == "desc" || read == "descending")
-                order = "desc";
+                default:
+                    break;
+            }
 
             //Opret kommando og send den til sql laget
             string sqlcmd = string.Format("select * from Kunder Order by {0} {1}", parameter, order);
             Console.Clear();
             Console.WriteLine("Id, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
             SQL.Read(sqlcmd);
-        }
+
+    }
 
         public void DeleteKunde(int id)
         {
@@ -868,7 +871,7 @@ namespace Autoværksted
             string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
             SQL.Delete(sqlcmd);
         }
-        
+
 
         /// <summary>
         /// Diverse
