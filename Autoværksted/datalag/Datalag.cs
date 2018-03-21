@@ -732,32 +732,7 @@ namespace Autoværksted
             Console.Write("\nIndtast Reg nr: ");
             string regnr = Console.ReadLine();
 
-            Console.Write("\nIndtast afleverings Dato YYYY-MM-DD (Blank hvis nu): ");
-            string rl = Console.ReadLine();
-
-            Console.Write("\nIndtast afhentnings Dato YYYY-MM-DD (Blank hvis ikke hentet): ");
-            string retrieved = Console.ReadLine();
-
-            if (string.IsNullOrWhiteSpace(retrieved))
-                retrieved = "GETDATE()";
-
-            Console.Write("\nIndtast Kunde Kommentar: ");
-            string comment = Console.ReadLine();
-
-            Console.Write("\nIndtast Diagnose: ");
-            string diagnose = Console.ReadLine();
-
-            Console.Write("\nIndtast Skade: ");
-            string damage = Console.ReadLine();
-
-            string date = string.Empty;
-
-            if (string.IsNullOrEmpty(rl))
-                date = "GETDATE()";
-            else
-                date = string.Format("'{0}'", rl);
-
-            string sqlcmd = string.Format("insert into vaerkstedsophold (hentning_dato, aflevring_dato, kunde_id, fk_reg_nr, diagnose, kunde_kommentar, skade) values ({0}, {1}, {2}, '{3}', '{4}', '{5}', '{6}')", date, retrieved, id, regnr, diagnose, comment, damage);
+            string sqlcmd = string.Format("insert into Vaerkstedsophold (oprettelsesdato, kunde_id, fk_reg_nr) values (GETDATE(), {0}, '{1}')", id, regnr);
 
             SQL.Create(sqlcmd);
         }
@@ -823,8 +798,8 @@ namespace Autoværksted
             Console.Clear();
             string afleverings_dato = "null", hentnings_dato = "null", damage = "null", diagnose = "null", comment = "null";
             Console.WriteLine("\nIndtast RegNr på den Bil der skal opdateres");
-            string regnr = Console.ReadLine();
-            regnr = regnr.ToUpper();
+            string id = Console.ReadLine();
+
             Console.WriteLine("\nHer aflevere man eller henter en Bil fra Værkstedet");
 
             Console.WriteLine("\nHvad vil du opdatere?\n" +
@@ -851,7 +826,7 @@ namespace Autoværksted
                 case "hent":
                     if (string.IsNullOrEmpty(afleverings_dato))
                     {
-                        Console.WriteLine("Der er ikke en Bil med RegNr: {0}, i Værkstedet ", regnr);
+                        Console.WriteLine("Der er ikke en Bil med RegNr: {0}, i Værkstedet ", id);
                         Thread.Sleep(3000);
                         DeliverGetAutoRecord();
                     }
@@ -880,8 +855,8 @@ namespace Autoværksted
                 damage = "null";
             }
 
-            string sqlcmd = string.Format("insert into vaerkstedsophold (aflevring_dato, hentning_dato, fk_reg_nr, kunde_kommentar, diagnose, skade) values ({0}, {1}, {2}, '{3}', '{4}', '{5}')", afleverings_dato, hentnings_dato, regnr, comment, diagnose, damage);
-            SQL.Create(sqlcmd);
+            string sqlcmd = string.Format("update vaerkstedsophold Set aflevring_dato = {0}, hentning_dato = {1}, kunde_kommentar = '{2}', diagnose = '{3}', skade = '{4}' where id = '{5}'", afleverings_dato, hentnings_dato, comment, diagnose, damage, id);
+            SQL.Update(sqlcmd);
         }
 
 

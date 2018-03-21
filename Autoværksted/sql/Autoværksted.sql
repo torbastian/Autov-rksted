@@ -28,7 +28,7 @@ oprettelsesdato date not null
 
 create table Vaerkstedsophold (
 id int identity(1,1) Primary key,
-createvaerksted_dato date not null,
+oprettelsesdato date not null,
 aflevring_dato date,
 hentning_dato date,
 kunde_id int foreign key references Kunder(id),
