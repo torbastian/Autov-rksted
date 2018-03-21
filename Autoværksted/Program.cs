@@ -143,7 +143,6 @@ namespace Autoværksted
             Kunder();
         }
 
-
         static void Biler()
         {
             Console.Clear();
