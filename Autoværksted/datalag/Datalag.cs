@@ -68,9 +68,14 @@ namespace Autoværksted
             //Hvis id > 0, vis kunde ud fra id
             if (id > 0)
             {
+                Console.Clear();
                 string sqlcmd = string.Format("select * from Kunder where id={0}", id);
                 Console.WriteLine("Id, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
                 //Kald på sql laget for at læse
+                SQL.Read(sqlcmd);
+
+                sqlcmd = string.Format("select * from Biler where kunde_id={0}", id);
+                Console.WriteLine("\nReg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
                 SQL.Read(sqlcmd);
             }
             else
@@ -112,7 +117,7 @@ namespace Autoværksted
             string parameter = string.Empty;
 
             //Find et valid input ud fra brugerns input
-            switch (menu.MenuSelector(Order, "Sorteret efter hvilket"))
+            switch (menu.MenuSelector(Order, "Sorteret efter hvilket\n"))
             {
                 case 0:
                     parameter = "efternavn";
@@ -151,7 +156,7 @@ namespace Autoværksted
 
             string order = string.Empty;
 
-            switch (menu.MenuSelector(AscDesc, "I hvilken rækkefølge"))
+            switch (menu.MenuSelector(AscDesc, "I hvilken rækkefølge\n"))
             {
                 case 0:
                     order = "asc";
@@ -218,7 +223,6 @@ namespace Autoværksted
             //Hvis id < 0, Spørg hvad man vil ændre
             if (id > 0)
             {
-                ShowKunde(id);
                 MenuItem[] Update = new MenuItem[]
                 {
                     new MenuItem("Fornavn"),
@@ -234,7 +238,7 @@ namespace Autoværksted
 
                 while (!accept)
                 {
-                    switch (menu.MenuSelector(Update, "\nHvad vil du ændre?"))
+                    switch (menu.MenuSelector(Update, "\nHvad vil du ændre?\n"))
                     {
                         case 0:
                             if (!choosen.Contains("Fornavn"))
@@ -420,8 +424,13 @@ namespace Autoværksted
 
             if (!string.IsNullOrEmpty(regnr))
             {
+                Console.Clear();
                 string sqlcmd = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
                 Console.WriteLine("Reg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
+                SQL.Read(sqlcmd);
+
+                Console.WriteLine("\nId, Fornavn, Efternavn, Adresse, Tlf, Oprettelsesdato");
+                sqlcmd = string.Format("select Kunder.* From Kunder Inner Join biler on Kunder.id = biler.kunde_id where reg_nr = '{0}'", regnr);
                 SQL.Read(sqlcmd);
             }
             else
@@ -467,7 +476,7 @@ namespace Autoværksted
 
             string parameter = string.Empty;
 
-            switch (menu.MenuSelector(Order, "Sorteret efter hvilket"))
+            switch (menu.MenuSelector(Order, "Sorteret efter hvilket\n"))
             {
                 case 0:
                     parameter = "reg_nr";
@@ -522,7 +531,7 @@ namespace Autoværksted
                 new MenuItem("Descending")
             };
 
-            switch (menu.MenuSelector(AscDesc, "I hvilken rækkefølge"))
+            switch (menu.MenuSelector(AscDesc, "I hvilken rækkefølge\n"))
             {
                 case 0:
                     order = "asc";
@@ -607,7 +616,7 @@ namespace Autoværksted
 
                 while (!accept)
                 {
-                    switch (menu.MenuSelector(Update, "Hvad vil du ændre?"))
+                    switch (menu.MenuSelector(Update, "Hvad vil du ændre?\n"))
                     {
                         case 0:
                             if (!choosen.Contains("Reg_nr"))
@@ -811,7 +820,7 @@ namespace Autoværksted
         {   //Få fat i kunden en bestemt bil har
             Console.Write("Indtast Reg nr: ");
             string regnr = Console.ReadLine().ToUpper();
-            string sqlcmd = string.Format("select id, fornavn, efternavn, reg_nr, maerke, model" +
+            string sqlcmd = string.Format("select id, fornavn, efternavn, bil.*" +
                             " From Kunder" +
                             " Inner join biler on Kunder.id = biler.kunde_id" +
                             " Where reg_nr = '{0}'", regnr);
