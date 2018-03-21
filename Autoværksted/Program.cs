@@ -253,8 +253,7 @@ namespace Autoværksted
                     lag.InnerJoinAutoRecord();
                     break;
 
-
-                case 0:
+                case 7:
                     Menu();
                     break;
 

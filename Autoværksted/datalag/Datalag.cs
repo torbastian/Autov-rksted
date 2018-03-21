@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Autoværksted
 {
@@ -96,6 +97,7 @@ namespace Autoværksted
 
         public void ShowKundeOrder()
         {   //Vis kunder i valgt rækkefølge
+            Console.Clear();
             Console.WriteLine("I hvilken ordre?\n" +
                               "Efternavn\n" +
                               "Fornavn\n" +
@@ -142,6 +144,7 @@ namespace Autoværksted
 
                 default:
                     Console.WriteLine("Ukendt input");
+                    Thread.Sleep(2500);
                     ShowKundeOrder();
                     break;
             }
@@ -202,6 +205,7 @@ namespace Autoværksted
 
         public void UpdateKunde()
         {
+            Console.Clear();
             ShowKundeAll();
 
             Console.WriteLine("\nIndtast kunde id: ");
@@ -262,6 +266,9 @@ namespace Autoværksted
                             return;
 
                         default:
+                            Console.WriteLine("Ukendt Indput");
+                            Thread.Sleep(2500);
+                            UpdateKunde();
                             break;
                     }
                 }
@@ -398,6 +405,7 @@ namespace Autoværksted
 
         public void ShowBilOrder()
         {   //Vis biler efter en bruger bestemt order
+            Console.Clear();
             Console.WriteLine("I hvilken ordre?\n" +
                               "regnr\n" +
                               "kunde id (id)\n" +
@@ -476,6 +484,7 @@ namespace Autoværksted
 
                 default:
                     Console.WriteLine("Ukendt input");
+                    Thread.Sleep(2500);
                     ShowBilOrder();
                     break;
             }
@@ -535,7 +544,7 @@ namespace Autoværksted
         public void UpdateBil()
         {
             ShowBilAll();
-
+            Console.Clear();
             //Opdater bil efter bruger input
             Console.Write("\nIndtast reg nr: ");
             string regnr = Console.ReadLine();
@@ -610,6 +619,9 @@ namespace Autoværksted
                             return;
 
                         default:
+                            Console.WriteLine("Ukent Indput");
+                            Thread.Sleep(2500);
+                            UpdateBil();
                             break;
                     }
                 }
@@ -806,6 +818,52 @@ namespace Autoværksted
             SQL.Update(sqlcmd);
         }
 
+        public void DeliverGetAutoRecord()
+        {   //Gør at man kan hente og aflevere en bil
+            Console.Clear();
+            Console.WriteLine("\nHer aflevere man eller henter man en Bil fra Værkstedet");
+            Console.WriteLine("\n");
+            Console.WriteLine("\nHvad vil du opdatere?\n" +
+                                "For at aflevere en bil på Værstedet Indtast             (Aflever)\n" +
+                                "For at hente en bil fra Værkstedet Indtast              (Hent)\n" +
+                                "For at gå tilbage til VærkstedMenu Indtast              (0)");
+
+            string afleverhent = Console.ReadLine();
+
+            switch (afleverhent.ToLower())
+            {
+                case "aflever":
+                    Console.Write("\nIndtast Kunde Kommentar: ");
+                    string comment = Console.ReadLine();
+
+                    Console.Write("\nIndtast Diagnose: ");
+                    string diagnose = Console.ReadLine();
+
+                    Console.Write("\nIndtast Skade: ");
+                    string damage = Console.ReadLine();
+                    break;
+
+                case "hent":
+                    if (afleverings_dato == null)
+                    {
+                        Console.WriteLine("Der er ikke en Bil med RegNr: {0}, i Værkstedet ", regnr);
+                    }
+                    Console.Write("\nIndtast Skade: ");
+                    damage = Console.ReadLine();
+                    break;
+
+                case "0":
+                    break;
+
+                default:
+                    Console.WriteLine("Ukendt Indput");
+                    Thread.Sleep(2500);
+                    DeliverGetAutoRecord();
+                    break;
+            }
+        }
+
+
         public void DeleteAutoRecord()
         {   //Slet værksteds ophold
             Console.Write("Slet værksteds besøg\nIndtast besøg id: ");
@@ -814,6 +872,7 @@ namespace Autoværksted
             string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
             SQL.Delete(sqlcmd);
         }
+        
 
         /// <summary>
         /// Diverse
