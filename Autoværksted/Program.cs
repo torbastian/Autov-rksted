@@ -63,7 +63,7 @@ namespace Autoværksted
         {
             Console.Clear();
 
-            switch (menu.MenuSelector(HovedMenu, "Hoved Menu"))
+            switch (menu.MenuSelector(HovedMenu, "Hoved Menu\n"))
             {
                 case 0:
                     Kunder();
@@ -92,7 +92,7 @@ namespace Autoværksted
         {
             Console.Clear();
 
-            switch (menu.MenuSelector(KundeMenu, "Kunde Menu"))
+            switch (menu.MenuSelector(KundeMenu, "Kunde Menu\n"))
             {
                 case 0:
                     Console.WriteLine("\nHer opretter man en ny Kunde");
@@ -148,7 +148,7 @@ namespace Autoværksted
         {
             Console.Clear();
             
-            switch (menu.MenuSelector(BilMenu, "Bil Menu"))
+            switch (menu.MenuSelector(BilMenu, "Bil Menu\n"))
             {
                 case 0:
                     Console.WriteLine("\nHer opretter du en Bil");
@@ -198,7 +198,7 @@ namespace Autoværksted
         {
             Console.Clear();
 
-            switch (menu.MenuSelector(VaerkstedsMenu, "Værkstedsophold"))
+            switch (menu.MenuSelector(VaerkstedsMenu, "Værkstedsophold\n"))
             {
                 case 0:
                     Console.WriteLine("\nHer laver man et nyt Værkstedsophold");
