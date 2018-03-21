@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="datalag\Datalag.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Modeller\Bil.cs" />
     <Compile Include="Modeller\Kunde.cs" />
     <Compile Include="Program.cs" />
