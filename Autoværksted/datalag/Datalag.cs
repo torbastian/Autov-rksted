@@ -793,7 +793,7 @@ namespace Autoværksted
                     {
                         Console.WriteLine("Der er ikke en Bil med RegNr: {0}, i Værkstedet ", id);
                         Thread.Sleep(3000);
-                        DeliverGetAutoRecord();
+                        UpdateAutoRecord();
                     }
                     else
                     {
@@ -810,7 +810,7 @@ namespace Autoværksted
                 default:
                     Console.WriteLine("Ukendt Indput");
                     Thread.Sleep(2500);
-                    DeliverGetAutoRecord();
+                    UpdateAutoRecord();
                     break;
             }
 
