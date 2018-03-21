@@ -729,11 +729,57 @@ namespace Autoværksted
         /// </summary>
         public void NewAutoRecord()
         {   //Opret ny værksteds ophold
+            string afleverings_dato = "null", hentnings_dato = "null", damage = "null", diagnose = "null", comment = "null";
             Console.Write("Opret nyt værksteds besøg\nIndtast Kunde id: ");
             string id = Console.ReadLine();
 
             Console.Write("\nIndtast Reg nr: ");
             string regnr = Console.ReadLine();
+
+            Console.WriteLine("Fejler bilen noget? (ja) eller tast intet for nej)");
+            int bilskade = Convert.ToInt16(Console.ReadLine());
+
+            switch (bilskade)
+            {
+                case 0:
+                    afleverings_dato = "GETDATE()";
+                    Console.Write("\nIndtast Kunde Kommentar: ");
+                    comment = Console.ReadLine();
+
+                    Console.Write("\nIndtast Diagnose: ");
+                    diagnose = Console.ReadLine();
+
+                    Console.Write("\nIndtast Skadeomfang: ");
+                    damage = Console.ReadLine();
+                    break;
+
+                case 1:
+                    if (string.IsNullOrEmpty(afleverings_dato))
+                    {
+                        Console.WriteLine("Der er ikke en afleveret en Bil med RegNr: {0}, i Værkstedet ", regnr);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nIndtast nuværende Skadeomfang");
+                        damage = Console.ReadLine();
+                        afleverings_dato = "null";
+                        hentnings_dato = "GETDATE()";
+                    }
+                    break;
+
+                case 2:
+                    break;
+
+                default:
+                    break;
+
+
+            }
+            if (string.IsNullOrEmpty(diagnose))
+            {
+                comment = "null";
+                damage = "null";
+            }
 
             string sqlcmd = string.Format("insert into Vaerkstedsophold (oprettelsesdato, kunde_id, fk_reg_nr) values (GETDATE(), {0}, '{1}')", id, regnr);
 
@@ -758,19 +804,33 @@ namespace Autoværksted
             SQL.Read(sqlcmd);
         }
 
-        public void UpdateAutoRecord()
+        /*public void UpdateAutoRecord()
         {   //Gør at man kan opdatere, hente og aflevere en Bil
             Console.Clear();
             string afleverings_dato = "null", hentnings_dato = "null", damage = "null", diagnose = "null", comment = "null";
             Console.WriteLine("\nIndtast RegNr på den Bil der skal opdateres");
+            string regnr = Console.ReadLine();
+
+            if (!string.IsNullOrEmpty(regnr))
+            {
+                string Biler = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
+                SQL.Read(Biler);
+            }
+            else
+            {
+                Console.WriteLine("Fejl! - Regnr findes ikke");
+                Thread.Sleep(2500);
+                UpdateAutoRecord();
+            }
+
             string id = Console.ReadLine();
 
             Console.WriteLine("\nHer aflevere man eller henter en Bil fra Værkstedet");
 
             Console.WriteLine("\nHvad vil du opdatere?\n" +
-                                "For at aflevere en bil på Værstedet Indtast             (Aflever)\n" +
-                                "For at hente en bil fra Værkstedet Indtast              (Hent)\n" +
-                                "For at gå tilbage til VærkstedMenu Indtast              (0)");
+                                "For at aflevere en bil på Værstedet Indtast (Aflever)\n" +
+                                "For at hente en bil fra Værkstedet Indtast  (Hent)\n" +
+                                "For at gå tilbage til VærkstedMenu Indtast  (0)");
 
             string afleverhent = Console.ReadLine();
 
@@ -791,7 +851,7 @@ namespace Autoværksted
                 case "hent":
                     if (string.IsNullOrEmpty(afleverings_dato))
                     {
-                        Console.WriteLine("Der er ikke en Bil med RegNr: {0}, i Værkstedet ", id);
+                        Console.WriteLine("Der er ikke en afleveret en Bil med RegNr: {0}, i Værkstedet ", regnr);
                         Thread.Sleep(3000);
                         UpdateAutoRecord();
                     }
@@ -823,7 +883,7 @@ namespace Autoværksted
             string sqlcmd = string.Format("update vaerkstedsophold Set aflevring_dato = {0}, hentning_dato = {1}, kunde_kommentar = '{2}', diagnose = '{3}', skade = '{4}' where id = '{5}'", afleverings_dato, hentnings_dato, comment, diagnose, damage, id);
             SQL.Update(sqlcmd);
         }
-
+        */
 
         public void DeleteAutoRecord()
         {   //Slet værksteds ophold
@@ -833,7 +893,7 @@ namespace Autoværksted
             string sqlcmd = string.Format("delete from vaerkstedsophold where id= {0}", id);
             SQL.Delete(sqlcmd);
         }
-
+        
 
         /// <summary>
         /// Diverse
