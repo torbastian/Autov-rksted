@@ -759,44 +759,6 @@ namespace Autoværksted
         }
 
         public void UpdateAutoRecord()
-        {
-            Console.Write("Indtast Besøg id: ");
-            string id = Console.ReadLine();
-
-            Console.Write("Hvad vil du ændre? (vælg 1)\n" +
-                          "Afhentning dato (adato)\n" +
-                          "Diagnose\n" +
-                          "Skade");
-
-            string rl = Console.ReadLine().ToLower();
-            string parameter = string.Empty;
-            string changeTo = string.Empty;
-            switch (rl)
-            {
-                case "adato":
-                    parameter = "hentning_dato";
-                    break;
-
-                case "diagnose":
-                    parameter = "diagnose";
-                    break;
-
-                case "skade":
-                    parameter = "skade";
-                    break;
-
-                default:
-                    return;
-            }
-
-            Console.WriteLine("Hvad skal {0} ændres til?", parameter);
-            changeTo = Console.ReadLine();
-
-            string sqlcmd = string.Format("update Vaerkstedsophold set {0} = {1} where id = {2}", parameter, changeTo, id);
-            SQL.Update(sqlcmd);
-        }
-
-        public void DeliverGetAutoRecord()
         {   //Gør at man kan opdatere, hente og aflevere en Bil
             Console.Clear();
             string afleverings_dato = "null", hentnings_dato = "null", damage = "null", diagnose = "null", comment = "null";

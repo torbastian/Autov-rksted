@@ -218,7 +218,7 @@ namespace Autoværksted
 
                 case 3:
                     Console.WriteLine("\nHer opdatere man en Bils Værkstedsophold");
-                    lag.DeliverGetAutoRecord();
+                    lag.UpdateAutoRecord();
                     break;
 
                 case 4:
