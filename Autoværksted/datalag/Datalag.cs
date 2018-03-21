@@ -819,10 +819,14 @@ namespace Autoværksted
         }
 
         public void DeliverGetAutoRecord()
-        {   //Gør at man kan hente og aflevere en bil
+        {   //Gør at man kan opdatere, hente og aflevere en Bil
             Console.Clear();
-            Console.WriteLine("\nHer aflevere man eller henter man en Bil fra Værkstedet");
-            Console.WriteLine("\n");
+            string afleverings_dato = "null", hentnings_dato = "null", damage = "null", diagnose = "null", comment = "null";
+            Console.WriteLine("\nIndtast RegNr på den Bil der skal opdateres");
+            string regnr = Console.ReadLine();
+            regnr = regnr.ToUpper();
+            Console.WriteLine("\nHer aflevere man eller henter en Bil fra Værkstedet");
+
             Console.WriteLine("\nHvad vil du opdatere?\n" +
                                 "For at aflevere en bil på Værstedet Indtast             (Aflever)\n" +
                                 "For at hente en bil fra Værkstedet Indtast              (Hent)\n" +
@@ -833,27 +837,35 @@ namespace Autoværksted
             switch (afleverhent.ToLower())
             {
                 case "aflever":
+                    afleverings_dato = "GETDATE()";
                     Console.Write("\nIndtast Kunde Kommentar: ");
-                    string comment = Console.ReadLine();
+                    comment = Console.ReadLine();
 
                     Console.Write("\nIndtast Diagnose: ");
-                    string diagnose = Console.ReadLine();
+                    diagnose = Console.ReadLine();
 
-                    Console.Write("\nIndtast Skade: ");
-                    string damage = Console.ReadLine();
-                    break;
-
-                case "hent":
-                    if (afleverings_dato == null)
-                    {
-                        Console.WriteLine("Der er ikke en Bil med RegNr: {0}, i Værkstedet ", regnr);
-                    }
-                    Console.Write("\nIndtast Skade: ");
+                    Console.Write("\nIndtast Skadeomfang: ");
                     damage = Console.ReadLine();
                     break;
 
-                case "0":
+                case "hent":
+                    if (string.IsNullOrEmpty(afleverings_dato))
+                    {
+                        Console.WriteLine("Der er ikke en Bil med RegNr: {0}, i Værkstedet ", regnr);
+                        Thread.Sleep(3000);
+                        DeliverGetAutoRecord();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nIndtast nuværende Skadeomfang");
+                        damage = Console.ReadLine();
+                        afleverings_dato = "null";
+                        hentnings_dato = "GETDATE()";
+                    }
                     break;
+
+                case "0":
+                    return;
 
                 default:
                     Console.WriteLine("Ukendt Indput");
@@ -861,6 +873,15 @@ namespace Autoværksted
                     DeliverGetAutoRecord();
                     break;
             }
+
+            if (string.IsNullOrEmpty(diagnose))
+            {
+                comment = "null";
+                damage = "null";
+            }
+
+            string sqlcmd = string.Format("insert into vaerkstedsophold (aflevring_dato, hentning_dato, fk_reg_nr, kunde_kommentar, diagnose, skade) values ({0}, {1}, {2}, '{3}', '{4}', '{5}')", afleverings_dato, hentnings_dato, regnr, comment, diagnose, damage);
+            SQL.Create(sqlcmd);
         }
 
 
