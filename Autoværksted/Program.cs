@@ -48,7 +48,6 @@ namespace Autoværksted
             new MenuItem("Opret et Værkstedsophold"),
             new MenuItem("Vis oplysninger på et Bestemt Værkstedsophold"),
             new MenuItem("Vis oplysninger på alle Værkstedsophold"),
-            new MenuItem("Opdater et Værkstedsophold"),
             new MenuItem("Slet et Værkstedsophold"),
             new MenuItem("Tilbage til HovedMenu")
         };
@@ -217,16 +216,11 @@ namespace Autoværksted
                     break;
 
                 case 3:
-                    Console.WriteLine("\nHer opdatere man en Bils Værkstedsophold");
-                    lag.UpdateAutoRecord();
-                    break;
-
-                case 4:
                     Console.WriteLine("\nHer sletter man et Værkstedsophold");
                     lag.DeleteAutoRecord(); //Bruger metoden DeleteAutoRecord fra Klassen Datalag
                     break;
 
-                case 5:
+                case 4:
                     MainMenu();
                     break;
 

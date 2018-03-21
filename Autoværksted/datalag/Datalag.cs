@@ -209,7 +209,6 @@ namespace Autoværksted
         public void UpdateKunde()
         {
             Console.Clear();
-            ShowKundeAll();
 
             Console.WriteLine("\nIndtast kunde id: ");
             string kid = Console.ReadLine();
@@ -220,22 +219,76 @@ namespace Autoværksted
             if (id > 0)
             {
                 ShowKunde(id);
-                Console.WriteLine("Hvad vil du ændre? - Indtast de ønskede følgende\n" +
-                                  "Fornavn\n" +
-                                  "Efternavn\n" +
-                                  "Adresse\n" +
-                                  "Telefon\n" +
-                                  "Back (b) For at gå tilbage");
+                MenuItem[] Update = new MenuItem[]
+                {
+                    new MenuItem("Fornavn"),
+                    new MenuItem("Efternavn"),
+                    new MenuItem("Adresse"),
+                    new MenuItem("Telefon"),
+                    new MenuItem("Accepter"),
+                    new MenuItem("Tilbage")
+                };
 
-                //Få fat i valg
-                string[] valgt = Console.ReadLine().Split();
+                bool accept = false;
+                List<string> choosen = new List<string>();
+
+                while (!accept)
+                {
+                    switch (menu.MenuSelector(Update, "\nHvad vil du ændre?"))
+                    {
+                        case 0:
+                            if (!choosen.Contains("Fornavn"))
+                                choosen.Add("Fornavn");
+                            else
+                                choosen.Remove("Fornavn");
+                            break;
+
+                        case 1:
+                            if (!choosen.Contains("Efternavn"))
+                                choosen.Add("Efternavn");
+                            else
+                                choosen.Remove("Efternavn");
+                            break;
+
+                        case 2:
+                            if (!choosen.Contains("Adresse"))
+                                choosen.Add("Adresse");
+                            else
+                                choosen.Remove("Adresse");
+                            break;
+
+                        case 3:
+                            if (!choosen.Contains("Telefon"))
+                                choosen.Add("Telefon");
+                            else
+                                choosen.Remove("Telefon");
+                            break;
+
+                        case 4:
+                            accept = true;
+                            break;
+
+                        case 5:
+                            return;
+
+                        default:
+                            break;
+                    }
+
+                    Console.Write("Valgt: ");
+
+                    foreach (string s in choosen)
+                    {
+                        Console.Write(s + ", ");
+                    }
+                }
 
                 Kunde kunde = new Kunde();
 
                 //Gå igennem alt i valgt og skriv data til en Kunde
-                foreach (string v in valgt)
+                foreach (string c in choosen)
                 {
-                    switch (v.ToLower())
+                    switch (c.ToLower())
                     {
                         case "fornavn":
                             Console.WriteLine("Indtast nyt fornavn");
@@ -257,20 +310,8 @@ namespace Autoværksted
                             kunde.Tlf = Console.ReadLine().Trim();
                             break;
 
-                        case "tlf":
-                            Console.WriteLine("Indtast nyt Telefon nr");
-                            kunde.Tlf = Console.ReadLine().Trim();
-                            break;
-
-                        case "b":
-                            return;
-
-                        case "back":
-                            return;
-
                         default:
                             Console.WriteLine("Ukendt Indput");
-                            Thread.Sleep(2500);
                             UpdateKunde();
                             break;
                     }
@@ -409,108 +450,99 @@ namespace Autoværksted
         public void ShowBilOrder()
         {   //Vis biler efter en bruger bestemt order
             Console.Clear();
-            Console.WriteLine("I hvilken ordre?\n" +
-                              "regnr\n" +
-                              "kunde id (id)\n" +
-                              "mærke (maerke)\n" +
-                              "model\n" +
-                              "Årgang (aargang)\n" +
-                              "Km\n" +
-                              "Brændstof (braendstof)\n" +
-                              "Kml\n" +
-                              "Oprettelses Dato (Dato)\n" +
-                              "Back (b) For at gå tilbage");
+
+            MenuItem[] Order = new MenuItem[]
+            {
+                new MenuItem("Reg nr"),
+                new MenuItem("Kunde id"),
+                new MenuItem("Mærke"),
+                new MenuItem("Model"),
+                new MenuItem("Årgang"),
+                new MenuItem("Km"),
+                new MenuItem("Kml"),
+                new MenuItem("Brændstof"),
+                new MenuItem("Oprettelses Dato"),
+                new MenuItem("Tilbage")
+            };
 
             string parameter = string.Empty;
-            string read = Console.ReadLine().ToLower().Trim();
 
-            //Få valid input fra bruger input
-            switch (read)
+            switch (menu.MenuSelector(Order, "Sorteret efter hvilket"))
             {
-                case "regnr":
-                    parameter = read;
+                case 0:
+                    parameter = "reg_nr";
                     break;
 
-                case "kundeid":
-                    parameter = read;
+                case 1:
+                    parameter = "kunde_id";
                     break;
 
-                case "mærke":
-                    parameter = read;
+                case 2:
+                    parameter = "maerke";
                     break;
 
-                case "maerke":
-                    parameter = read;
+                case 3:
+                    parameter = "model";
                     break;
 
-                case "model":
-                    parameter = read;
+                case 4:
+                    parameter = "aargang";
                     break;
 
-                case "årgang":
-                    parameter = read;
+                case 5:
+                    parameter = "km";
                     break;
 
-                case "aargang":
-                    parameter = read;
+                case 6:
+                    parameter = "kml";
                     break;
 
-                case "km":
-                    parameter = read;
+                case 7:
+                    parameter = "braendstof";
                     break;
 
-                case "brændstof":
-                    parameter = read;
-                    break;
-
-                case "braendstof":
-                    parameter = read;
-                    break;
-
-                case "kml":
-                    parameter = read;
-                    break;
-
-                case "dato":
+                case 8:
                     parameter = "oprettelsesdato";
                     break;
 
-                case "oprettelsesdato":
-                    parameter = read;
-                    break;
-
-                case "b":
-                    return;
-
-                case "back":
+                case 9:
                     return;
 
                 default:
                     Console.WriteLine("Ukendt input");
-                    Thread.Sleep(2500);
                     ShowBilOrder();
                     break;
             }
 
-            string order = "asc";
+            string order = string.Empty;
 
-            read = string.Empty;
+            MenuItem[] AscDesc = new MenuItem[]
+            {
+                new MenuItem("Ascending"),
+                new MenuItem("Descending")
+            };
 
-            Console.WriteLine("Ascending (asc) eller Descending (desc)");
+            switch (menu.MenuSelector(AscDesc, "I hvilken rækkefølge"))
+            {
+                case 0:
+                    order = "asc";
+                    break;
 
-            read = Console.ReadLine().ToLower();
+                case 1:
+                    order = "desc";
+                    break;
 
-            //Sorter efter valgt order
-            if (read == "asc" || read == "ascending")
-                order = "asc";
-            else if (read == "desc" || read == "descending")
-                order = "desc";
+                default:
+                    order = "asc";
+                    break;
+            }
 
             //Lav og kør kommando
             string sqlcmd = string.Format("select * from Biler Order by {0} {1}", parameter, order);
             Console.Clear();
             Console.WriteLine("Reg nr, Kunde Id, Mærke, Model, Årgang, Km, Brændstof, Kml, Oprettelsesdato");
             SQL.Read(sqlcmd);
+
         }
 
         public void DeleteBil(string regnr)
@@ -555,36 +587,120 @@ namespace Autoværksted
             if (!string.IsNullOrEmpty(regnr))
             {   //Find ud af hvad brugeren vil ændre
                 ShowBil(regnr);
-                Console.WriteLine("Hvad vil du ændre? - Indtast de ønskede følgende\n" +
-                                  "Regnr\n" +
-                                  "KundeId\n" +
-                                  "Mærke\n" +
-                                  "Model\n" +
-                                  "Årgang\n" +
-                                  "Km\n" +
-                                  "Brændstof\n" +
-                                  "Kml\n" +
-                                  "Back (b) For at komme tilbage");
 
-                string[] valgt = Console.ReadLine().Split();
+                MenuItem[] Update = new MenuItem[]
+                {
+                    new MenuItem("Reg nr"),
+                    new MenuItem("Kunde Id"),
+                    new MenuItem("Mærke"),
+                    new MenuItem("Model"),
+                    new MenuItem("Årgang"),
+                    new MenuItem("Km"),
+                    new MenuItem("Brændstof"),
+                    new MenuItem("Kml"),
+                    new MenuItem("Accepter"),
+                    new MenuItem("Tilbage")
+                };
+
+                bool accept = false;
+                List<string> choosen = new List<string>();
+
+                while (!accept)
+                {
+                    switch (menu.MenuSelector(Update, "Hvad vil du ændre?"))
+                    {
+                        case 0:
+                            if (!choosen.Contains("Reg_nr"))
+                                choosen.Add("Reg_nr");
+                            else
+                                choosen.Remove("Reg_nr");
+                            break;
+
+                        case 1:
+                            if (!choosen.Contains("Kunde_Id"))
+                                choosen.Add("Kunde_Id");
+                            else
+                                choosen.Remove("Kunde_Id");
+                            break;
+
+                        case 2:
+                            if (!choosen.Contains("Maerke"))
+                                choosen.Add("Maerke");
+                            else
+                                choosen.Remove("Maerke");
+                            break;
+
+                        case 3:
+                            if (!choosen.Contains("Model"))
+                                choosen.Add("Model");
+                            else
+                                choosen.Remove("Model");
+                            break;
+
+                        case 4:
+                            if (!choosen.Contains("Aargang"))
+                                choosen.Add("Aargang");
+                            else
+                                choosen.Remove("Aargang");
+                            break;
+
+                        case 5:
+                            if (!choosen.Contains("Km"))
+                                choosen.Add("Km");
+                            else
+                                choosen.Remove("Km");
+                            break;
+
+                        case 6:
+                            if (!choosen.Contains("Braendstof"))
+                                choosen.Add("Braendstof");
+                            else
+                                choosen.Remove("Braendstof");
+                            break;
+
+                        case 7:
+                            if (!choosen.Contains("Kml"))
+                                choosen.Add("Kml");
+                            else
+                                choosen.Remove("Kml");
+                            break;
+
+                        case 8:
+                            accept = true;
+                            break;
+
+                        case 9:
+                            return;
+
+                        default:
+                            break;
+                    }
+
+                    Console.Write("Valgt: ");
+
+                    foreach (string s in choosen)
+                    {
+                        Console.Write(s + ", ");
+                    }
+                }
 
                 Bil bil = new Bil();
 
-                foreach (string v in valgt)
+                foreach (string c in choosen)
                 {
-                    switch (v.ToLower())
+                    switch (c.ToLower())
                     {
-                        case "regnr":
+                        case "reg_nr":
                             Console.WriteLine("Indtast nyt Regnr");
                             bil.RegNR = Console.ReadLine().Trim();
                             break;
 
-                        case "kundeid":
+                        case "kunde_id":
                             Console.WriteLine("Indtast nyt Kunde ID");
                             bil.KundeID = Convert.ToInt16(Console.ReadLine().Trim());
                             break;
 
-                        case "mærke":
+                        case "maerke":
                             Console.WriteLine("Indtast nyt mærke");
                             bil.Maerke = Console.ReadLine().Trim();
                             break;
@@ -594,7 +710,7 @@ namespace Autoværksted
                             bil.Model = Console.ReadLine().Trim();
                             break;
 
-                        case "årgang":
+                        case "aargang":
                             Console.WriteLine("Indtast ny årgang");
                             bil.Aargang = Convert.ToInt16(Console.ReadLine().Trim());
                             break;
@@ -604,7 +720,7 @@ namespace Autoværksted
                             bil.Km = Convert.ToInt16(Console.ReadLine().Trim());
                             break;
 
-                        case "brændstof":
+                        case "braendstof":
                             Console.WriteLine("Indtast nyt Brændstof");
                             bil.Braendstof = Console.ReadLine();
                             break;
@@ -615,18 +731,11 @@ namespace Autoværksted
                             bil.Kml = kml;
                             break;
 
-                        case "b":
-                            return;
-
-                        case "back":
-                            return;
-
                         default:
-                            Console.WriteLine("Ukent Indput");
-                            Thread.Sleep(2500);
                             UpdateBil();
                             break;
                     }
+
                 }
 
                 List<string> ToUpdate = new List<string>();
@@ -734,12 +843,19 @@ namespace Autoværksted
             string id = Console.ReadLine();
 
             Console.Write("\nIndtast Reg nr: ");
-            string regnr = Console.ReadLine();
+            string regnr = Console.ReadLine().ToUpper();
 
-            Console.WriteLine("Fejler bilen noget? (ja) eller tast intet for nej)");
-            int bilskade = Convert.ToInt16(Console.ReadLine());
+            MenuItem[] Choice = new MenuItem[]
+            {
+                new MenuItem("Aflever bil"),
+                new MenuItem("Hent Bil"),
+                new MenuItem("Eftersyn"),
+                new MenuItem("Tilbage")
+            };
 
-            switch (bilskade)
+            Console.Clear();
+
+            switch (menu.MenuSelector(Choice, "Fortag valg\n"))
             {
                 case 0:
                     afleverings_dato = "GETDATE()";
@@ -770,18 +886,23 @@ namespace Autoværksted
                 case 2:
                     break;
 
+                case 3:
+                    return;
+
                 default:
-                    break;
-
-
+                    return;
             }
+
             if (string.IsNullOrEmpty(diagnose))
             {
                 comment = "null";
                 damage = "null";
             }
 
-            string sqlcmd = string.Format("insert into Vaerkstedsophold (oprettelsesdato, kunde_id, fk_reg_nr) values (GETDATE(), {0}, '{1}')", id, regnr);
+            string sqlcmd = string.Format("insert into Vaerkstedsophold (oprettelsesdato, kunde_id, fk_reg_nr, " +
+                                          "aflevering_dato, hentning_dato, skade, diagnose, kunde_kommentar) " +
+                                          "values (GETDATE(), {0}, '{1}', {2}, {3}, '{4}', '{5}', '{6}')",
+                                          id, regnr, afleverings_dato, hentnings_dato, damage, diagnose, comment);
 
             SQL.Create(sqlcmd);
         }
@@ -804,86 +925,6 @@ namespace Autoværksted
             SQL.Read(sqlcmd);
         }
 
-        /*public void UpdateAutoRecord()
-        {   //Gør at man kan opdatere, hente og aflevere en Bil
-            Console.Clear();
-            string afleverings_dato = "null", hentnings_dato = "null", damage = "null", diagnose = "null", comment = "null";
-            Console.WriteLine("\nIndtast RegNr på den Bil der skal opdateres");
-            string regnr = Console.ReadLine();
-
-            if (!string.IsNullOrEmpty(regnr))
-            {
-                string Biler = string.Format("select * from Biler where reg_nr= '{0}'", regnr);
-                SQL.Read(Biler);
-            }
-            else
-            {
-                Console.WriteLine("Fejl! - Regnr findes ikke");
-                Thread.Sleep(2500);
-                UpdateAutoRecord();
-            }
-
-            string id = Console.ReadLine();
-
-            Console.WriteLine("\nHer aflevere man eller henter en Bil fra Værkstedet");
-
-            Console.WriteLine("\nHvad vil du opdatere?\n" +
-                                "For at aflevere en bil på Værstedet Indtast (Aflever)\n" +
-                                "For at hente en bil fra Værkstedet Indtast  (Hent)\n" +
-                                "For at gå tilbage til VærkstedMenu Indtast  (0)");
-
-            string afleverhent = Console.ReadLine();
-
-            switch (afleverhent.ToLower())
-            {
-                case "aflever":
-                    afleverings_dato = "GETDATE()";
-                    Console.Write("\nIndtast Kunde Kommentar: ");
-                    comment = Console.ReadLine();
-
-                    Console.Write("\nIndtast Diagnose: ");
-                    diagnose = Console.ReadLine();
-
-                    Console.Write("\nIndtast Skadeomfang: ");
-                    damage = Console.ReadLine();
-                    break;
-
-                case "hent":
-                    if (string.IsNullOrEmpty(afleverings_dato))
-                    {
-                        Console.WriteLine("Der er ikke en afleveret en Bil med RegNr: {0}, i Værkstedet ", regnr);
-                        Thread.Sleep(3000);
-                        UpdateAutoRecord();
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nIndtast nuværende Skadeomfang");
-                        damage = Console.ReadLine();
-                        afleverings_dato = "null";
-                        hentnings_dato = "GETDATE()";
-                    }
-                    break;
-
-                case "0":
-                    return;
-
-                default:
-                    Console.WriteLine("Ukendt Indput");
-                    Thread.Sleep(2500);
-                    UpdateAutoRecord();
-                    break;
-            }
-
-            if (string.IsNullOrEmpty(diagnose))
-            {
-                comment = "null";
-                damage = "null";
-            }
-
-            string sqlcmd = string.Format("update vaerkstedsophold Set aflevring_dato = {0}, hentning_dato = {1}, kunde_kommentar = '{2}', diagnose = '{3}', skade = '{4}' where id = '{5}'", afleverings_dato, hentnings_dato, comment, diagnose, damage, id);
-            SQL.Update(sqlcmd);
-        }
-        */
 
         public void DeleteAutoRecord()
         {   //Slet værksteds ophold
